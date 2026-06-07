@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Flame, Menu } from "lucide-react";
+import { Flame, Menu, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "./ThemeToggle";
+import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -17,6 +18,7 @@ const navItems = [
 
 export function Header() {
   const pathname = usePathname();
+  const { user, loading, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
@@ -47,6 +49,48 @@ export function Header() {
         <div className="flex items-center gap-2 ml-auto">
           <ThemeToggle />
 
+          {/* Auth */}
+          {!loading && (
+            <>
+              {user ? (
+                <div className="hidden md:flex items-center gap-2">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-neutral-800 text-sm">
+                    {user.photoURL ? (
+                      <img
+                        src={user.photoURL}
+                        alt=""
+                        className="w-5 h-5 rounded-full"
+                      />
+                    ) : (
+                      <User className="w-4 h-4 text-neutral-400" />
+                    )}
+                    <span className="text-neutral-300 max-w-[120px] truncate">
+                      {user.displayName || user.email}
+                    </span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={logout}
+                    title="Se deconnecter"
+                  >
+                    <LogOut className="w-4 h-4 text-neutral-400" />
+                  </Button>
+                </div>
+              ) : (
+                <Link href="/connexion" className="hidden md:block">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-neutral-400 hover:text-white"
+                  >
+                    Connexion
+                  </Button>
+                </Link>
+              )}
+            </>
+          )}
+
           {/* Mobile hamburger */}
           <Sheet>
             <SheetTrigger
@@ -74,6 +118,44 @@ export function Header() {
                     {item.label}
                   </Link>
                 ))}
+
+                {/* Mobile auth */}
+                {!loading && (
+                  <div className="border-t border-neutral-800 pt-4 mt-2">
+                    {user ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 text-sm text-neutral-300">
+                          {user.photoURL ? (
+                            <img
+                              src={user.photoURL}
+                              alt=""
+                              className="w-6 h-6 rounded-full"
+                            />
+                          ) : (
+                            <User className="w-5 h-5 text-neutral-400" />
+                          )}
+                          <span className="truncate">
+                            {user.displayName || user.email}
+                          </span>
+                        </div>
+                        <button
+                          onClick={logout}
+                          className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Se deconnecter
+                        </button>
+                      </div>
+                    ) : (
+                      <Link
+                        href="/connexion"
+                        className="flex items-center gap-2 text-sm text-orange-400 hover:text-orange-300"
+                      >
+                        Connexion
+                      </Link>
+                    )}
+                  </div>
+                )}
               </div>
             </SheetContent>
           </Sheet>
