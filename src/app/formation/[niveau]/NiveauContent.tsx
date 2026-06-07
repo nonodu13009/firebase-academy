@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useEffect } from "react";
 
-export default function NiveauContent() {
+export default function NiveauContent({ contentHtml }: { contentHtml: string | null }) {
   const params = useParams();
   const slug = params.niveau as string;
   const { getStatus, markInProgress, markCompleted } = useProgress();
@@ -79,19 +79,32 @@ export default function NiveauContent() {
 
       <Separator className="bg-neutral-800" />
 
-      {/* Contenu placeholder */}
-      <div className="prose prose-invert max-w-none space-y-6">
-        <p className="text-neutral-300 leading-relaxed">{level.description}</p>
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 text-center text-neutral-400">
-          <p className="text-lg mb-2">Contenu du niveau a venir</p>
-          <p className="text-sm">
-            Le contenu detaille est disponible dans{" "}
-            <code className="bg-neutral-800 px-2 py-0.5 rounded text-orange-400">
-              docs/formation/{slug}.md
-            </code>
-          </p>
+      {/* Contenu du cours */}
+      {contentHtml ? (
+        <div
+          className="prose prose-invert max-w-none
+            prose-headings:text-white prose-headings:font-bold
+            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-neutral-800 prose-h2:pb-3
+            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-orange-300
+            prose-p:text-neutral-300 prose-p:leading-relaxed
+            prose-strong:text-white
+            prose-a:text-orange-400 prose-a:no-underline hover:prose-a:text-orange-300
+            prose-code:bg-neutral-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-orange-400 prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+            prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-neutral-800 prose-pre:rounded-lg
+            prose-li:text-neutral-300 prose-li:marker:text-orange-400
+            prose-ol:text-neutral-300
+            prose-blockquote:border-orange-400/50 prose-blockquote:text-neutral-400 prose-blockquote:bg-neutral-900/50 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:px-4
+            prose-table:border-collapse
+            prose-th:bg-neutral-800 prose-th:text-neutral-200 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:border prose-th:border-neutral-700
+            prose-td:px-4 prose-td:py-2 prose-td:border prose-td:border-neutral-800 prose-td:text-neutral-300
+            prose-hr:border-neutral-800"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
+      ) : (
+        <div className="prose prose-invert max-w-none space-y-6">
+          <p className="text-neutral-300 leading-relaxed">{level.description}</p>
         </div>
-      </div>
+      )}
 
       <Separator className="bg-neutral-800" />
 
