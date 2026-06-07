@@ -113,7 +113,7 @@ export default function ExemplesPage() {
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
       <div className="space-y-3">
         <h1 className="text-3xl md:text-4xl font-bold">Exemples concrets</h1>
-        <p className="text-neutral-400">
+        <p className="text-muted-foreground">
           Chaque produit Firebase explique avec des exemples du monde reel.
         </p>
       </div>
@@ -128,7 +128,7 @@ export default function ExemplesPage() {
             className={cn(
               filter === f
                 ? "bg-orange-400/10 text-orange-400"
-                : "text-neutral-400"
+                : "text-muted-foreground"
             )}
           >
             {f === "all" ? "Tous" : f === "build" ? "Build" : f === "run" ? "Run" : "IA"}
@@ -142,17 +142,17 @@ export default function ExemplesPage() {
           return (
             <Card
               key={product.slug}
-              className="p-6 bg-neutral-900 border-neutral-800"
+              className="p-6 bg-card border-border"
             >
               <h3 className="font-semibold text-lg text-orange-400">
                 {product.name}
               </h3>
-              <p className="text-sm text-neutral-300 mt-2">{data.brief}</p>
+              <p className="text-sm text-muted-foreground mt-2">{data.brief}</p>
               <ul className="mt-4 space-y-2">
                 {data.examples.map((ex, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2 text-sm text-neutral-400"
+                    className="flex items-start gap-2 text-sm text-muted-foreground"
                   >
                     <span className="text-orange-400 mt-0.5 shrink-0">
                       &bull;

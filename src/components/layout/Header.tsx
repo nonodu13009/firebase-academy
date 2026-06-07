@@ -20,7 +20,7 @@ export function Header() {
   const { user, loading, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto flex h-14 items-center px-4 gap-6">
         <a href="/" className="flex items-center gap-2 font-bold text-lg">
           <Flame className="w-5 h-5 text-orange-400" />
@@ -37,7 +37,7 @@ export function Header() {
                 "px-3 py-2 rounded-md text-sm transition-colors",
                 pathname.startsWith(item.href)
                   ? "text-orange-400 bg-orange-400/10"
-                  : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
               {item.label}
@@ -53,7 +53,7 @@ export function Header() {
             <>
               {user ? (
                 <div className="hidden md:flex items-center gap-2">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-neutral-800 text-sm">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted text-sm">
                     {user.photoURL ? (
                       <img
                         src={user.photoURL}
@@ -61,9 +61,9 @@ export function Header() {
                         className="w-5 h-5 rounded-full"
                       />
                     ) : (
-                      <User className="w-4 h-4 text-neutral-400" />
+                      <User className="w-4 h-4 text-muted-foreground" />
                     )}
-                    <span className="text-neutral-300 max-w-[120px] truncate">
+                    <span className="text-muted-foreground max-w-[120px] truncate">
                       {user.displayName || user.email}
                     </span>
                   </div>
@@ -73,7 +73,7 @@ export function Header() {
                     onClick={logout}
                     title="Se deconnecter"
                   >
-                    <LogOut className="w-4 h-4 text-neutral-400" />
+                    <LogOut className="w-4 h-4 text-muted-foreground" />
                   </Button>
                 </div>
               ) : (
@@ -81,7 +81,7 @@ export function Header() {
                   render={<a href="/connexion" />}
                   variant="ghost"
                   size="sm"
-                  className="hidden md:inline-flex text-neutral-400 hover:text-white"
+                  className="hidden md:inline-flex text-muted-foreground hover:text-foreground"
                 >
                   Connexion
                 </Button>
@@ -96,7 +96,7 @@ export function Header() {
             >
               <Menu className="w-5 h-5" />
             </SheetTrigger>
-            <SheetContent side="left" className="bg-neutral-950 border-neutral-800">
+            <SheetContent side="left" className="bg-background border-border">
               <div className="flex flex-col gap-4 mt-8">
                 <a href="/" className="flex items-center gap-2 font-bold text-lg mb-4">
                   <Flame className="w-5 h-5 text-orange-400" />
@@ -110,7 +110,7 @@ export function Header() {
                       "px-3 py-2 rounded-md text-sm transition-colors",
                       pathname.startsWith(item.href)
                         ? "text-orange-400 bg-orange-400/10"
-                        : "text-neutral-400 hover:text-white"
+                        : "text-muted-foreground hover:text-foreground"
                     )}
                   >
                     {item.label}
@@ -119,10 +119,10 @@ export function Header() {
 
                 {/* Mobile auth */}
                 {!loading && (
-                  <div className="border-t border-neutral-800 pt-4 mt-2">
+                  <div className="border-t border-border pt-4 mt-2">
                     {user ? (
                       <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-sm text-neutral-300">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           {user.photoURL ? (
                             <img
                               src={user.photoURL}
@@ -130,7 +130,7 @@ export function Header() {
                               className="w-6 h-6 rounded-full"
                             />
                           ) : (
-                            <User className="w-5 h-5 text-neutral-400" />
+                            <User className="w-5 h-5 text-muted-foreground" />
                           )}
                           <span className="truncate">
                             {user.displayName || user.email}
@@ -138,7 +138,7 @@ export function Header() {
                         </div>
                         <button
                           onClick={logout}
-                          className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white"
+                          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
                         >
                           <LogOut className="w-4 h-4" />
                           Se deconnecter

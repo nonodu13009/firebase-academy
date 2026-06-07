@@ -32,7 +32,7 @@ export default function RootLayout({
       className={`${nunito.variable} ${firaCode.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-neutral-950 text-white">
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         <Providers>
           <Header />
           <main className="flex-1">{children}</main>

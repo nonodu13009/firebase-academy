@@ -94,7 +94,7 @@ export default function ConnexionPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
-      <Card className="w-full max-w-md p-8 bg-neutral-900 border-neutral-800 space-y-6">
+      <Card className="w-full max-w-md p-8 bg-card border-border space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
           <Flame className="w-10 h-10 text-orange-400 mx-auto" />
@@ -103,7 +103,7 @@ export default function ConnexionPage() {
             {mode === "register" && "Creer un compte"}
             {mode === "reset" && "Mot de passe oublie"}
           </h1>
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-muted-foreground">
             {mode === "login" && "Connecte-toi pour suivre ta progression"}
             {mode === "register" && "Inscris-toi pour sauvegarder ta progression"}
             {mode === "reset" && "Entre ton email pour recevoir un lien de reinitialisation"}
@@ -129,7 +129,7 @@ export default function ConnexionPage() {
               onClick={handleGoogle}
               disabled={loading}
               variant="outline"
-              className="w-full border-neutral-700 text-neutral-300 hover:text-white hover:bg-neutral-800 gap-2"
+              className="w-full border-border text-muted-foreground hover:text-foreground hover:bg-muted gap-2"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -153,9 +153,9 @@ export default function ConnexionPage() {
             </Button>
 
             <div className="flex items-center gap-3">
-              <div className="flex-1 h-px bg-neutral-800" />
-              <span className="text-xs text-neutral-500">ou par email</span>
-              <div className="flex-1 h-px bg-neutral-800" />
+              <div className="flex-1 h-px bg-border" />
+              <span className="text-xs text-muted-foreground">ou par email</span>
+              <div className="flex-1 h-px bg-border" />
             </div>
           </>
         )}
@@ -163,23 +163,23 @@ export default function ConnexionPage() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm text-neutral-300">Email</label>
+            <label className="text-sm text-foreground">Email</label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 type="email"
                 placeholder="ton@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="pl-10 bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
+                className="pl-10 bg-muted border-border"
               />
             </div>
           </div>
 
           {mode !== "reset" && (
             <div className="space-y-2">
-              <label className="text-sm text-neutral-300">Mot de passe</label>
+              <label className="text-sm text-foreground">Mot de passe</label>
               <div className="relative">
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -188,12 +188,12 @@ export default function ConnexionPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
-                  className="pr-10 bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
+                  className="pr-10 bg-muted border-border"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />
@@ -235,7 +235,7 @@ export default function ConnexionPage() {
         </form>
 
         {/* Toggle mode */}
-        <div className="text-center text-sm text-neutral-400">
+        <div className="text-center text-sm text-muted-foreground">
           {mode === "login" && (
             <>
               Pas encore de compte ?{" "}
@@ -285,7 +285,7 @@ export default function ConnexionPage() {
         <div className="text-center">
           <a
             href="/"
-            className="text-xs text-neutral-500 hover:text-neutral-300"
+            className="text-xs text-muted-foreground hover:text-foreground"
           >
             Retour a l&apos;accueil
           </a>

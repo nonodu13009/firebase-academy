@@ -26,7 +26,7 @@ export default function ReferencePage() {
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
       <div className="space-y-3">
         <h1 className="text-3xl md:text-4xl font-bold">Reference</h1>
-        <p className="text-neutral-400">
+        <p className="text-muted-foreground">
           Les {products.length} produits Firebase documentes. Fiches techniques
           detaillees.
         </p>
@@ -44,11 +44,11 @@ export default function ReferencePage() {
               "gap-1",
               filter === f.value
                 ? "bg-orange-400/10 text-orange-400"
-                : "text-neutral-400"
+                : "text-muted-foreground"
             )}
           >
             {f.label}
-            <span className="text-xs text-neutral-500">({f.count})</span>
+            <span className="text-xs text-muted-foreground">({f.count})</span>
           </Button>
         ))}
       </div>
@@ -58,14 +58,14 @@ export default function ReferencePage() {
         {filtered.map((product) => (
           <Card
             key={product.slug}
-            className="p-5 bg-neutral-900 border-neutral-800 hover:border-orange-400/50 transition-all group"
+            className="p-5 bg-card border-border hover:border-orange-400/50 transition-all group"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <h3 className="font-semibold group-hover:text-orange-400 transition-colors">
                   {product.name}
                 </h3>
-                <p className="text-sm text-neutral-400 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   {product.description}
                 </p>
               </div>
@@ -75,7 +75,7 @@ export default function ReferencePage() {
                 href={product.docUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs text-neutral-400 hover:text-white"
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
               >
                 <ExternalLink className="w-3 h-3" />
                 Doc officielle

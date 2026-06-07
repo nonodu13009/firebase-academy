@@ -40,16 +40,16 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 space-y-8">
       {/* Breadcrumb */}
-      <nav className="text-sm text-neutral-500 flex items-center gap-2">
-        <a href="/" className="hover:text-white">
+      <nav className="text-sm text-muted-foreground flex items-center gap-2">
+        <a href="/" className="hover:text-foreground">
           Accueil
         </a>
         <span>/</span>
-        <a href="/formation" className="hover:text-white">
+        <a href="/formation" className="hover:text-foreground">
           Formation
         </a>
         <span>/</span>
-        <span className="text-neutral-300">
+        <span className="text-foreground">
           Niveau {level.id} — {level.title}
         </span>
       </nav>
@@ -62,7 +62,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
           </span>
           <div>
             <h1 className="text-3xl font-bold">{level.title}</h1>
-            <p className="text-neutral-400">{level.subtitle}</p>
+            <p className="text-muted-foreground">{level.subtitle}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -77,36 +77,36 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
         </div>
       </div>
 
-      <Separator className="bg-neutral-800" />
+      <Separator className="bg-border" />
 
       {/* Contenu du cours */}
       {contentHtml ? (
         <div
-          className="prose prose-invert max-w-none
-            prose-headings:text-white prose-headings:font-bold
-            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-neutral-800 prose-h2:pb-3
-            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-orange-300
-            prose-p:text-neutral-300 prose-p:leading-relaxed
-            prose-strong:text-white
+          className="prose dark:prose-invert max-w-none
+            prose-headings:font-bold
+            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border prose-h2:pb-3
+            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-orange-400 dark:prose-h3:text-orange-300
+            prose-p:text-muted-foreground prose-p:leading-relaxed
+            prose-strong:text-foreground
             prose-a:text-orange-400 prose-a:no-underline hover:prose-a:text-orange-300
-            prose-code:bg-neutral-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-orange-400 prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
-            prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-neutral-800 prose-pre:rounded-lg
-            prose-li:text-neutral-300 prose-li:marker:text-orange-400
-            prose-ol:text-neutral-300
-            prose-blockquote:border-orange-400/50 prose-blockquote:text-neutral-400 prose-blockquote:bg-neutral-900/50 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:px-4
+            prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-orange-400 prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+            prose-pre:bg-card prose-pre:border prose-pre:border-border prose-pre:rounded-lg
+            prose-li:text-muted-foreground prose-li:marker:text-orange-400
+            prose-ol:text-muted-foreground
+            prose-blockquote:border-orange-400/50 prose-blockquote:text-muted-foreground prose-blockquote:bg-card/50 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:px-4
             prose-table:border-collapse
-            prose-th:bg-neutral-800 prose-th:text-neutral-200 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:border prose-th:border-neutral-700
-            prose-td:px-4 prose-td:py-2 prose-td:border prose-td:border-neutral-800 prose-td:text-neutral-300
-            prose-hr:border-neutral-800"
+            prose-th:bg-muted prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:border prose-th:border-border
+            prose-td:px-4 prose-td:py-2 prose-td:border prose-td:border-border prose-td:text-muted-foreground
+            prose-hr:border-border"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
       ) : (
-        <div className="prose prose-invert max-w-none space-y-6">
-          <p className="text-neutral-300 leading-relaxed">{level.description}</p>
+        <div className="prose dark:prose-invert max-w-none space-y-6">
+          <p className="text-muted-foreground leading-relaxed">{level.description}</p>
         </div>
       )}
 
-      <Separator className="bg-neutral-800" />
+      <Separator className="bg-border" />
 
       {/* Marquer comme termine */}
       {status !== "completed" ? (
@@ -126,7 +126,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
             Niveau termine !
           </div>
           {nextLevel && (
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-muted-foreground">
               Prochaine etape →{" "}
               <a href={`/formation/${nextLevel.slug}`} className="text-orange-400 hover:text-orange-300 font-medium">
                 Niveau {nextLevel.id} — {nextLevel.title}
@@ -139,7 +139,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
       {/* Navigation precedent/suivant */}
       <div className="flex justify-between pt-4">
         {prevLevel ? (
-          <Button render={<a href={`/formation/${prevLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
+          <Button render={<a href={`/formation/${prevLevel.slug}`} />} variant="ghost" className="text-muted-foreground hover:text-foreground gap-2">
             <ArrowLeft className="w-4 h-4" />
             Niveau {prevLevel.id} — {prevLevel.title}
           </Button>
@@ -147,7 +147,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
           <div />
         )}
         {nextLevel ? (
-          <Button render={<a href={`/formation/${nextLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
+          <Button render={<a href={`/formation/${nextLevel.slug}`} />} variant="ghost" className="text-muted-foreground hover:text-foreground gap-2">
             Niveau {nextLevel.id} — {nextLevel.title}
             <ArrowRight className="w-4 h-4" />
           </Button>

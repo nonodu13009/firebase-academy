@@ -13,7 +13,7 @@ interface Props {
 }
 
 const statusConfig = {
-  "not-started": { icon: Circle, label: "A faire", color: "text-neutral-500" },
+  "not-started": { icon: Circle, label: "A faire", color: "text-muted-foreground" },
   "in-progress": { icon: Loader2, label: "En cours", color: "text-orange-400" },
   completed: { icon: CheckCircle2, label: "Termine", color: "text-green-400" },
 };
@@ -25,12 +25,12 @@ export function LevelCard({ level, status }: Props) {
     <a href={`/formation/${level.slug}`}>
       <Card
         className={cn(
-          "p-6 bg-neutral-900 border-neutral-800 hover:border-orange-400/50 transition-all hover:shadow-lg hover:shadow-orange-400/5 cursor-pointer group",
+          "p-6 bg-card border-border hover:border-orange-400/50 transition-all hover:shadow-lg hover:shadow-orange-400/5 cursor-pointer group",
           status === "completed" && "border-green-400/20"
         )}
       >
         <div className="flex items-start justify-between mb-3">
-          <span className="text-3xl font-bold text-neutral-600 group-hover:text-orange-400 transition-colors">
+          <span className="text-3xl font-bold text-muted-foreground group-hover:text-orange-400 transition-colors">
             {level.id}
           </span>
           <div className={cn("flex items-center gap-1 text-xs", color)}>
@@ -40,14 +40,14 @@ export function LevelCard({ level, status }: Props) {
         </div>
 
         <h3 className="font-semibold text-lg mb-1">{level.title}</h3>
-        <p className="text-sm text-neutral-400 mb-4">{level.subtitle}</p>
+        <p className="text-sm text-muted-foreground mb-4">{level.subtitle}</p>
 
         <div className="flex flex-wrap gap-1.5">
           {level.products.map((product) => (
             <Badge
               key={product}
               variant="secondary"
-              className="bg-neutral-800 text-neutral-300 text-xs"
+              className="bg-muted text-muted-foreground text-xs"
             >
               {product}
             </Badge>

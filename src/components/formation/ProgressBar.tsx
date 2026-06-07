@@ -13,12 +13,12 @@ export function ProgressBar({ completedCount }: Props) {
   return (
     <div className="space-y-2">
       <div className="flex justify-between text-sm">
-        <span className="text-neutral-400">Progression</span>
-        <span className="text-neutral-300">
+        <span className="text-muted-foreground">Progression</span>
+        <span className="text-foreground">
           {completedCount}/{total} niveaux ({pct}%)
         </span>
       </div>
-      <div className="h-2 bg-neutral-800 rounded-full overflow-hidden">
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
         <div
           className="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transition-all duration-500"
           style={{ width: `${pct}%` }}

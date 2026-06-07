@@ -24,7 +24,7 @@ export default function GlossairePage() {
     <div className="max-w-3xl mx-auto px-4 py-12 space-y-8">
       <div className="space-y-3">
         <h1 className="text-3xl md:text-4xl font-bold">Glossaire</h1>
-        <p className="text-neutral-400">
+        <p className="text-muted-foreground">
           {allTerms.length} termes techniques expliques simplement, avec des
           liens pour approfondir.
         </p>
@@ -35,7 +35,7 @@ export default function GlossairePage() {
         placeholder="Chercher un terme... (ex: API, SDK, NoSQL)"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="bg-neutral-900 border-neutral-700"
+        className="bg-card border-border"
       />
 
       {/* Navigation alphabetique */}
@@ -44,7 +44,7 @@ export default function GlossairePage() {
           <a
             key={letter}
             href={`#letter-${letter}`}
-            className="w-8 h-8 rounded flex items-center justify-center text-sm text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+            className="w-8 h-8 rounded flex items-center justify-center text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
           >
             {letter}
           </a>
@@ -62,17 +62,17 @@ export default function GlossairePage() {
                 .map((entry) => (
                   <Card
                     key={entry.term}
-                    className="p-4 bg-neutral-900 border-neutral-800"
+                    className="p-4 bg-card border-border"
                   >
                     <h3 className="font-semibold">
                       {entry.term}
                       {entry.fullTerm && (
-                        <span className="font-normal text-neutral-500 ml-2">
+                        <span className="font-normal text-muted-foreground ml-2">
                           ({entry.fullTerm})
                         </span>
                       )}
                     </h3>
-                    <p className="text-sm text-neutral-400 mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       {entry.definition}
                     </p>
                     <div className="flex gap-4 mt-3">

@@ -30,18 +30,18 @@ export function GlossaryTerm({ term, children }: Props) {
       </TooltipTrigger>
       <TooltipContent
         side="top"
-        className="max-w-xs bg-neutral-900 border-neutral-700 p-4 space-y-3"
+        className="max-w-xs bg-popover border-border p-4 space-y-3"
       >
         <div>
-          <p className="font-semibold text-sm text-white">
+          <p className="font-semibold text-sm text-foreground">
             {entry.term}
             {entry.fullTerm && (
-              <span className="font-normal text-neutral-400 ml-1">
+              <span className="font-normal text-muted-foreground ml-1">
                 ({entry.fullTerm})
               </span>
             )}
           </p>
-          <p className="text-sm text-neutral-300 mt-1">{entry.definition}</p>
+          <p className="text-sm text-muted-foreground mt-1">{entry.definition}</p>
         </div>
         <div className="flex gap-3 pt-1">
           <a
