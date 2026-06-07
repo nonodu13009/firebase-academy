@@ -29,6 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     await signOut();
+    localStorage.removeItem("firebase-academy-progress");
     window.location.href = "/";
   };
 

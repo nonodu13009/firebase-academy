@@ -4,8 +4,10 @@ import { levels } from "@/data/levels";
 import { LevelCard } from "@/components/formation/LevelCard";
 import { ProgressBar } from "@/components/formation/ProgressBar";
 import { useProgress } from "@/hooks/useProgress";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function FormationPage() {
+  const { user } = useAuth();
   const { getStatus, completedCount } = useProgress();
 
   return (
@@ -18,14 +20,14 @@ export default function FormationPage() {
         </p>
       </div>
 
-      <ProgressBar completedCount={completedCount} />
+      {user && <ProgressBar completedCount={completedCount} />}
 
       <div className="grid md:grid-cols-2 gap-4">
         {levels.map((level) => (
           <LevelCard
             key={level.id}
             level={level}
-            status={getStatus(level.slug)}
+            status={user ? getStatus(level.slug) : "not-started"}
           />
         ))}
       </div>
