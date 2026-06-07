@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 export type LevelStatus = "not-started" | "in-progress" | "completed";
 
@@ -17,7 +17,6 @@ function loadProgress(): ProgressData {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { levels: {} };
     const parsed = JSON.parse(raw);
-    // Migration from old flat format
     if (!parsed.levels) return { levels: {}, ...parsed };
     return parsed;
   } catch {
@@ -32,9 +31,18 @@ function saveProgress(data: ProgressData) {
 
 export function useProgress() {
   const [progress, setProgress] = useState<ProgressData>({ levels: {} });
+  const progressRef = useRef(progress);
 
+  // Keep ref in sync
   useEffect(() => {
-    setProgress(loadProgress());
+    progressRef.current = progress;
+  }, [progress]);
+
+  // Load from localStorage once
+  useEffect(() => {
+    const loaded = loadProgress();
+    setProgress(loaded);
+    progressRef.current = loaded;
   }, []);
 
   const getStatus = useCallback(
@@ -44,31 +52,29 @@ export function useProgress() {
     [progress]
   );
 
-  const markInProgress = useCallback(
-    (slug: string) => {
-      if (progress.levels[slug] === "completed") return;
-      const updated: ProgressData = {
-        ...progress,
-        levels: { ...progress.levels, [slug]: "in-progress" },
-        lastVisited: `/formation/${slug}`,
-      };
-      setProgress(updated);
-      saveProgress(updated);
-    },
-    [progress]
-  );
+  const markInProgress = useCallback((slug: string) => {
+    const current = progressRef.current;
+    if (current.levels[slug] === "completed" || current.levels[slug] === "in-progress") return;
+    const updated: ProgressData = {
+      ...current,
+      levels: { ...current.levels, [slug]: "in-progress" },
+      lastVisited: `/formation/${slug}`,
+    };
+    progressRef.current = updated;
+    setProgress(updated);
+    saveProgress(updated);
+  }, []);
 
-  const markCompleted = useCallback(
-    (slug: string) => {
-      const updated: ProgressData = {
-        ...progress,
-        levels: { ...progress.levels, [slug]: "completed" },
-      };
-      setProgress(updated);
-      saveProgress(updated);
-    },
-    [progress]
-  );
+  const markCompleted = useCallback((slug: string) => {
+    const current = progressRef.current;
+    const updated: ProgressData = {
+      ...current,
+      levels: { ...current.levels, [slug]: "completed" },
+    };
+    progressRef.current = updated;
+    setProgress(updated);
+    saveProgress(updated);
+  }, []);
 
   const completedCount = Object.values(progress.levels).filter(
     (v) => v === "completed"

@@ -100,17 +100,27 @@ export default function NiveauContent() {
         <div className="text-center">
           <Button
             onClick={() => markCompleted(slug)}
-            className="bg-green-600 hover:bg-green-700 text-white gap-2"
+            className="bg-green-600 hover:bg-green-700 text-white gap-2 text-base px-6 py-3"
           >
-            <CheckCircle2 className="w-4 h-4" />
+            <CheckCircle2 className="w-5 h-5" />
             Marquer comme termine
           </Button>
         </div>
       ) : (
-        <p className="text-center text-green-400 flex items-center justify-center gap-2">
-          <CheckCircle2 className="w-4 h-4" />
-          Niveau termine
-        </p>
+        <div className="text-center space-y-3 py-4">
+          <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-lg px-6 py-3 text-base font-semibold animate-[fadeIn_0.3s_ease-in]">
+            <CheckCircle2 className="w-5 h-5" />
+            Niveau termine !
+          </div>
+          {nextLevel && (
+            <p className="text-sm text-neutral-400">
+              Prochaine etape →{" "}
+              <a href={`/formation/${nextLevel.slug}`} className="text-orange-400 hover:text-orange-300 font-medium">
+                Niveau {nextLevel.id} — {nextLevel.title}
+              </a>
+            </p>
+          )}
+        </div>
       )}
 
       {/* Navigation precedent/suivant */}
