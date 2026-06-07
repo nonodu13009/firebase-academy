@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ProgressTimeline } from "@/components/formation/ProgressTimeline";
 
 const nunito = Nunito({
   variable: "--font-sans",
@@ -35,8 +36,11 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <Providers>
           <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <div className="flex-1 lg:mr-64">
+            <main>{children}</main>
+            <Footer />
+          </div>
+          <ProgressTimeline />
         </Providers>
       </body>
     </html>
