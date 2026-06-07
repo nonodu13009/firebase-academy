@@ -5,6 +5,7 @@ import { Providers } from "@/components/layout/Providers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ProgressTimeline } from "@/components/formation/ProgressTimeline";
+import { MainWithSidebar } from "@/components/formation/MainWithSidebar";
 
 const nunito = Nunito({
   variable: "--font-sans",
@@ -36,10 +37,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <Providers>
           <Header />
-          <div className="flex-1 lg:mr-64">
+          <MainWithSidebar>
             <main>{children}</main>
             <Footer />
-          </div>
+          </MainWithSidebar>
           <ProgressTimeline />
         </Providers>
       </body>
