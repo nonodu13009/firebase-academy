@@ -6,13 +6,18 @@ import { levels } from "@/data/levels";
 import { useProgress } from "@/hooks/useProgress";
 import { CheckCircle2, Circle, Loader2, ListChecks, X, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function ProgressTimeline() {
+  const { user, loading } = useAuth();
   const { getStatus, completedCount } = useProgress();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const total = levels.length;
   const pct = Math.round((completedCount / total) * 100);
+
+  // Hide timeline when not logged in
+  if (loading || !user) return null;
 
   // Find the last completed level index
   let lastCompletedIndex = -1;
