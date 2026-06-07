@@ -33,9 +33,7 @@ export default function NiveauContent() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 className="text-2xl font-bold mb-4">Niveau introuvable</h1>
-        <Link href="/formation">
-          <Button variant="outline">Retour a la formation</Button>
-        </Link>
+        <Button render={<Link href="/formation" />} variant="outline">Retour a la formation</Button>
       </div>
     );
   }
@@ -119,22 +117,18 @@ export default function NiveauContent() {
       {/* Navigation precedent/suivant */}
       <div className="flex justify-between pt-4">
         {prevLevel ? (
-          <Link href={`/formation/${prevLevel.slug}`}>
-            <Button variant="ghost" className="text-neutral-400 hover:text-white gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Niveau {prevLevel.id} — {prevLevel.title}
-            </Button>
-          </Link>
+          <Button render={<Link href={`/formation/${prevLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            Niveau {prevLevel.id} — {prevLevel.title}
+          </Button>
         ) : (
           <div />
         )}
         {nextLevel ? (
-          <Link href={`/formation/${nextLevel.slug}`}>
-            <Button variant="ghost" className="text-neutral-400 hover:text-white gap-2">
-              Niveau {nextLevel.id} — {nextLevel.title}
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
+          <Button render={<Link href={`/formation/${nextLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
+            Niveau {nextLevel.id} — {nextLevel.title}
+            <ArrowRight className="w-4 h-4" />
+          </Button>
         ) : (
           <div />
         )}

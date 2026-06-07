@@ -30,17 +30,13 @@ export default function Home() {
           Chaque mot technique est explique.
         </p>
         <div className="flex gap-4 justify-center pt-4">
-          <Link href="/connexion">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
-              Commencer la formation
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/glossaire">
-            <Button size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:text-white">
-              Voir le glossaire
-            </Button>
-          </Link>
+          <Button render={<Link href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
+            Commencer la formation
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+          <Button render={<Link href="/glossaire" />} size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:text-white">
+            Voir le glossaire
+          </Button>
         </div>
       </section>
 
@@ -147,12 +143,10 @@ export default function Home() {
         <p className="text-neutral-400">
           Aucun prerequis Firebase. Juste les bases de JavaScript et React.
         </p>
-        <Link href="/connexion">
-          <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
-            Niveau 0 — Decouverte
-            <ArrowRight className="w-4 h-4" />
-          </Button>
-        </Link>
+        <Button render={<Link href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
+          Niveau 0 — Decouverte
+          <ArrowRight className="w-4 h-4" />
+        </Button>
       </section>
     </div>
   );

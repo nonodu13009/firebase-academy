@@ -78,15 +78,14 @@ export function Header() {
                   </Button>
                 </div>
               ) : (
-                <Link href="/connexion" className="hidden md:block">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-neutral-400 hover:text-white"
-                  >
-                    Connexion
-                  </Button>
-                </Link>
+                <Button
+                  render={<Link href="/connexion" />}
+                  variant="ghost"
+                  size="sm"
+                  className="hidden md:inline-flex text-neutral-400 hover:text-white"
+                >
+                  Connexion
+                </Button>
               )}
             </>
           )}
