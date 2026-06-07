@@ -18,6 +18,9 @@ export default function Home() {
           <Flame className="w-4 h-4" />
           Formation gratuite et open source
         </div>
+        <p className="text-xs text-muted-foreground">
+          Derniere mise a jour de la documentation : 7 juin 2026
+        </p>
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
           Apprends Firebase en
           <br />
