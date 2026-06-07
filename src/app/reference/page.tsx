@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { products } from "@/data/products";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -82,13 +81,13 @@ export default function ReferencePage() {
                 Doc officielle
               </a>
               {product.formationLevel !== undefined && (
-                <Link
+                <a
                   href={`/formation/niveau-${product.formationLevel}`}
                   className="flex items-center gap-1 text-xs text-orange-400 hover:text-orange-300"
                 >
                   <ArrowRight className="w-3 h-3" />
                   Niveau {product.formationLevel}
-                </Link>
+                </a>
               )}
             </div>
           </Card>

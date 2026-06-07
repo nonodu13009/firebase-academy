@@ -7,7 +7,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ExternalLink, BookOpen } from "lucide-react";
-import Link from "next/link";
 
 interface Props {
   term: string;
@@ -55,13 +54,13 @@ export function GlossaryTerm({ term, children }: Props) {
             Rechercher
           </a>
           {entry.referenceLink && (
-            <Link
+            <a
               href={entry.referenceLink}
               className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300"
             >
               <BookOpen className="w-3 h-3" />
               Fiche reference
-            </Link>
+            </a>
           )}
         </div>
       </TooltipContent>

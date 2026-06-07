@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Flame } from "lucide-react";
 
 export function Footer() {
@@ -71,24 +70,24 @@ export function Footer() {
             <h3 className="font-semibold text-sm mb-3">Ressources</h3>
             <ul className="space-y-2 text-sm text-neutral-400">
               <li>
-                <Link href="/glossaire" className="hover:text-white transition-colors">
+                <a href="/glossaire" className="hover:text-white transition-colors">
                   Glossaire
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/exemples" className="hover:text-white transition-colors">
+                <a href="/exemples" className="hover:text-white transition-colors">
                   Exemples concrets
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/reference" className="hover:text-white transition-colors">
+                <a href="/reference" className="hover:text-white transition-colors">
                   Fiches reference
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/formation" className="hover:text-white transition-colors">
+                <a href="/formation" className="hover:text-white transition-colors">
                   Plan de formation
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

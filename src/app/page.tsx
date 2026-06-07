@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { levels } from "@/data/levels";
@@ -30,11 +29,11 @@ export default function Home() {
           Chaque mot technique est explique.
         </p>
         <div className="flex gap-4 justify-center pt-4">
-          <Button render={<Link href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
+          <Button render={<a href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
             Commencer la formation
             <ArrowRight className="w-4 h-4" />
           </Button>
-          <Button render={<Link href="/glossaire" />} size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:text-white">
+          <Button render={<a href="/glossaire" />} size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:text-white">
             Voir le glossaire
           </Button>
         </div>
@@ -115,7 +114,7 @@ export default function Home() {
         </h2>
         <div className="space-y-4">
           {levels.map((level) => (
-            <Link
+            <a
               key={level.id}
               href={`/formation/${level.slug}`}
               className="block"
@@ -132,7 +131,7 @@ export default function Home() {
                 </div>
                 <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-orange-400 transition-colors shrink-0" />
               </Card>
-            </Link>
+            </a>
           ))}
         </div>
       </section>
@@ -143,7 +142,7 @@ export default function Home() {
         <p className="text-neutral-400">
           Aucun prerequis Firebase. Juste les bases de JavaScript et React.
         </p>
-        <Button render={<Link href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
+        <Button render={<a href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
           Niveau 0 — Decouverte
           <ArrowRight className="w-4 h-4" />
         </Button>

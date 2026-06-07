@@ -5,7 +5,6 @@ import { getAllTerms } from "@/data/glossary";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ExternalLink, BookOpen } from "lucide-react";
-import Link from "next/link";
 
 export default function GlossairePage() {
   const [search, setSearch] = useState("");
@@ -87,13 +86,13 @@ export default function GlossairePage() {
                         Rechercher sur le web
                       </a>
                       {entry.referenceLink && (
-                        <Link
+                        <a
                           href={entry.referenceLink}
                           className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300"
                         >
                           <BookOpen className="w-3 h-3" />
                           Fiche reference
-                        </Link>
+                        </a>
                       )}
                     </div>
                   </Card>

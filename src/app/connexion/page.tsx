@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -284,12 +283,12 @@ export default function ConnexionPage() {
 
         {/* Back to home */}
         <div className="text-center">
-          <Link
+          <a
             href="/"
             className="text-xs text-neutral-500 hover:text-neutral-300"
           >
             Retour a l&apos;accueil
-          </Link>
+          </a>
         </div>
       </Card>
     </div>

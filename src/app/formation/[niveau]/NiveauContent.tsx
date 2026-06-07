@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import Link from "next/link";
 import { levels } from "@/data/levels";
 import { useProgress } from "@/hooks/useProgress";
 import { Badge } from "@/components/ui/badge";
@@ -33,7 +32,7 @@ export default function NiveauContent() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 className="text-2xl font-bold mb-4">Niveau introuvable</h1>
-        <Button render={<Link href="/formation" />} variant="outline">Retour a la formation</Button>
+        <Button render={<a href="/formation" />} variant="outline">Retour a la formation</Button>
       </div>
     );
   }
@@ -42,13 +41,13 @@ export default function NiveauContent() {
     <div className="max-w-3xl mx-auto px-4 py-12 space-y-8">
       {/* Breadcrumb */}
       <nav className="text-sm text-neutral-500 flex items-center gap-2">
-        <Link href="/" className="hover:text-white">
+        <a href="/" className="hover:text-white">
           Accueil
-        </Link>
+        </a>
         <span>/</span>
-        <Link href="/formation" className="hover:text-white">
+        <a href="/formation" className="hover:text-white">
           Formation
-        </Link>
+        </a>
         <span>/</span>
         <span className="text-neutral-300">
           Niveau {level.id} — {level.title}
@@ -117,7 +116,7 @@ export default function NiveauContent() {
       {/* Navigation precedent/suivant */}
       <div className="flex justify-between pt-4">
         {prevLevel ? (
-          <Button render={<Link href={`/formation/${prevLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
+          <Button render={<a href={`/formation/${prevLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
             <ArrowLeft className="w-4 h-4" />
             Niveau {prevLevel.id} — {prevLevel.title}
           </Button>
@@ -125,7 +124,7 @@ export default function NiveauContent() {
           <div />
         )}
         {nextLevel ? (
-          <Button render={<Link href={`/formation/${nextLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
+          <Button render={<a href={`/formation/${nextLevel.slug}`} />} variant="ghost" className="text-neutral-400 hover:text-white gap-2">
             Niveau {nextLevel.id} — {nextLevel.title}
             <ArrowRight className="w-4 h-4" />
           </Button>

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Flame, Menu, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,15 +22,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto flex h-14 items-center px-4 gap-6">
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg">
+        <a href="/" className="flex items-center gap-2 font-bold text-lg">
           <Flame className="w-5 h-5 text-orange-400" />
           <span className="hidden sm:inline">Firebase Academy</span>
-        </Link>
+        </a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1 flex-1">
           {navItems.map((item) => (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className={cn(
@@ -42,7 +41,7 @@ export function Header() {
               )}
             >
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
 
@@ -79,7 +78,7 @@ export function Header() {
                 </div>
               ) : (
                 <Button
-                  render={<Link href="/connexion" />}
+                  render={<a href="/connexion" />}
                   variant="ghost"
                   size="sm"
                   className="hidden md:inline-flex text-neutral-400 hover:text-white"
@@ -99,12 +98,12 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="left" className="bg-neutral-950 border-neutral-800">
               <div className="flex flex-col gap-4 mt-8">
-                <Link href="/" className="flex items-center gap-2 font-bold text-lg mb-4">
+                <a href="/" className="flex items-center gap-2 font-bold text-lg mb-4">
                   <Flame className="w-5 h-5 text-orange-400" />
                   Firebase Academy
-                </Link>
+                </a>
                 {navItems.map((item) => (
-                  <Link
+                  <a
                     key={item.href}
                     href={item.href}
                     className={cn(
@@ -115,7 +114,7 @@ export function Header() {
                     )}
                   >
                     {item.label}
-                  </Link>
+                  </a>
                 ))}
 
                 {/* Mobile auth */}
@@ -146,12 +145,12 @@ export function Header() {
                         </button>
                       </div>
                     ) : (
-                      <Link
+                      <a
                         href="/connexion"
                         className="flex items-center gap-2 text-sm text-orange-400 hover:text-orange-300"
                       >
                         Connexion
-                      </Link>
+                      </a>
                     )}
                   </div>
                 )}

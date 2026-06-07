@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Level } from "@/data/levels";
@@ -23,7 +22,7 @@ export function LevelCard({ level, status }: Props) {
   const { icon: StatusIcon, label, color } = statusConfig[status];
 
   return (
-    <Link href={`/formation/${level.slug}`}>
+    <a href={`/formation/${level.slug}`}>
       <Card
         className={cn(
           "p-6 bg-neutral-900 border-neutral-800 hover:border-orange-400/50 transition-all hover:shadow-lg hover:shadow-orange-400/5 cursor-pointer group",
@@ -55,6 +54,6 @@ export function LevelCard({ level, status }: Props) {
           ))}
         </div>
       </Card>
-    </Link>
+    </a>
   );
 }
