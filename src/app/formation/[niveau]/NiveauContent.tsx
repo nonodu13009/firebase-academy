@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
 export default function NiveauContent({ contentHtml }: { contentHtml: string | null }) {
   const params = useParams();
@@ -29,7 +29,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
     }
   }, [slug, level, markInProgress]);
 
-  const addCopyButtons = useCallback(() => {
+  useEffect(() => {
     if (!contentRef.current) return;
     const pres = contentRef.current.querySelectorAll("pre");
     pres.forEach((pre) => {
@@ -38,43 +38,24 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
       const btn = document.createElement("button");
       btn.className = "copy-btn";
       btn.textContent = "Copier";
-      Object.assign(btn.style, {
-        position: "absolute",
-        top: "8px",
-        right: "8px",
-        padding: "4px 10px",
-        fontSize: "12px",
-        borderRadius: "6px",
-        border: "1px solid var(--border)",
-        background: "var(--muted)",
-        color: "var(--muted-foreground)",
-        cursor: "pointer",
-        opacity: "0",
-        transition: "opacity 0.2s",
-      });
-      pre.addEventListener("mouseenter", () => { btn.style.opacity = "1"; });
-      pre.addEventListener("mouseleave", () => {
-        btn.style.opacity = "0";
-        setTimeout(() => { btn.textContent = "Copier"; }, 200);
-      });
+      pre.appendChild(btn);
       btn.addEventListener("click", async () => {
         const code = pre.querySelector("code");
         const text = (code || pre).textContent || "";
-        await navigator.clipboard.writeText(text);
-        btn.textContent = "Copié !";
-        btn.style.color = "var(--green-400, #4ade80)";
-        setTimeout(() => {
-          btn.textContent = "Copier";
-          btn.style.color = "var(--muted-foreground)";
-        }, 2000);
+        try {
+          await navigator.clipboard.writeText(text);
+          btn.textContent = "Copié !";
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = "Copier";
+            btn.classList.remove("copied");
+          }, 2000);
+        } catch {
+          btn.textContent = "Erreur";
+        }
       });
-      pre.appendChild(btn);
     });
-  }, []);
-
-  useEffect(() => {
-    addCopyButtons();
-  }, [contentHtml, addCopyButtons]);
+  }, [contentHtml]);
 
   if (!level) {
     return (
