@@ -30,31 +30,34 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
   }, [slug, level, markInProgress]);
 
   useEffect(() => {
-    if (!contentRef.current) return;
-    const pres = contentRef.current.querySelectorAll("pre");
-    pres.forEach((pre) => {
-      if (pre.querySelector(".copy-btn")) return;
-      pre.style.position = "relative";
-      const btn = document.createElement("button");
-      btn.className = "copy-btn";
-      btn.textContent = "Copier";
-      pre.appendChild(btn);
-      btn.addEventListener("click", async () => {
-        const code = pre.querySelector("code");
-        const text = (code || pre).textContent || "";
-        try {
-          await navigator.clipboard.writeText(text);
-          btn.textContent = "Copié !";
-          btn.classList.add("copied");
-          setTimeout(() => {
-            btn.textContent = "Copier";
-            btn.classList.remove("copied");
-          }, 2000);
-        } catch {
-          btn.textContent = "Erreur";
-        }
+    const timer = setTimeout(() => {
+      if (!contentRef.current) return;
+      const pres = contentRef.current.querySelectorAll("pre");
+      pres.forEach((pre) => {
+        if (pre.querySelector(".copy-btn")) return;
+        pre.style.position = "relative";
+        const btn = document.createElement("button");
+        btn.className = "copy-btn";
+        btn.textContent = "Copier";
+        pre.appendChild(btn);
+        btn.addEventListener("click", async () => {
+          const code = pre.querySelector("code");
+          const text = (code || pre).textContent || "";
+          try {
+            await navigator.clipboard.writeText(text);
+            btn.textContent = "Copié !";
+            btn.classList.add("copied");
+            setTimeout(() => {
+              btn.textContent = "Copier";
+              btn.classList.remove("copied");
+            }, 2000);
+          } catch {
+            btn.textContent = "Erreur";
+          }
+        });
       });
-    });
+    }, 100);
+    return () => clearTimeout(timer);
   }, [contentHtml]);
 
   if (!level) {
