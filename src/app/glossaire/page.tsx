@@ -25,7 +25,7 @@ export default function GlossairePage() {
       <div className="space-y-3">
         <h1 className="text-3xl md:text-4xl font-bold">Glossaire</h1>
         <p className="text-muted-foreground">
-          {allTerms.length} termes techniques expliques simplement, avec des
+          {allTerms.length} termes techniques expliqués simplement, avec des
           liens pour approfondir.
         </p>
       </div>
@@ -38,7 +38,7 @@ export default function GlossairePage() {
         className="bg-card border-border"
       />
 
-      {/* Navigation alphabetique */}
+      {/* Navigation alphabétique */}
       <div className="flex flex-wrap gap-1">
         {letters.map((letter) => (
           <a
@@ -91,7 +91,7 @@ export default function GlossairePage() {
                           className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300"
                         >
                           <BookOpen className="w-3 h-3" />
-                          Fiche reference
+                          Fiche référence
                         </a>
                       )}
                     </div>

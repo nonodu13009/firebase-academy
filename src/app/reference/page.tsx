@@ -25,10 +25,10 @@ export default function ReferencePage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
       <div className="space-y-3">
-        <h1 className="text-3xl md:text-4xl font-bold">Reference</h1>
+        <h1 className="text-3xl md:text-4xl font-bold">Référence</h1>
         <p className="text-muted-foreground">
-          Les {products.length} produits Firebase documentes. Fiches techniques
-          detaillees.
+          Les {products.length} produits Firebase documentés. Fiches techniques
+          détaillées.
         </p>
       </div>
 

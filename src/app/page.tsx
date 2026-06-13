@@ -19,7 +19,7 @@ export default function Home() {
           Formation gratuite et open source
         </div>
         <p className="text-xs text-muted-foreground">
-          Derniere mise a jour de la documentation : 7 juin 2026
+          Dernière mise à jour de la documentation : 7 juin 2026
         </p>
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
           Apprends Firebase en
@@ -27,9 +27,9 @@ export default function Home() {
           <span className="text-orange-400">construisant une vraie app</span>
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          De zero a la production, niveau par niveau. En francais, sans jargon.
+          De zéro à la production, niveau par niveau. En français, sans jargon.
           <br />
-          Chaque mot technique est explique.
+          Chaque mot technique est expliqué.
         </p>
         <div className="flex gap-4 justify-center pt-4">
           <Button render={<a href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
@@ -49,21 +49,21 @@ export default function Home() {
             Tu vas construire NoteFlow
           </h2>
           <p className="text-muted-foreground">
-            Une app de prise de notes collaborative, de A a Z.
+            Une app de prise de notes collaborative, de A à Z.
           </p>
         </div>
         <Card className="p-8 bg-card border-border">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
             {[
               "Inscription et connexion",
-              "CRUD de notes en temps reel",
+              "CRUD de notes en temps réel",
               "Upload de fichiers",
-              "Regles de securite",
+              "Règles de sécurité",
               "Cloud Functions",
-              "Deploiement en production",
+              "Déploiement en production",
               "Analytics et monitoring",
-              "Configuration a distance",
-              "IA integree (Gemini)",
+              "Configuration à distance",
+              "IA intégrée (Gemini)",
             ].map((feature) => (
               <div key={feature} className="flex items-center gap-2 text-muted-foreground">
                 <div className="w-1.5 h-1.5 rounded-full bg-orange-400 shrink-0" />
@@ -87,23 +87,23 @@ export default function Home() {
             <BookOpen className="w-8 h-8 text-orange-400" />
             <h3 className="font-semibold">Formation progressive</h3>
             <p className="text-sm text-muted-foreground">
-              7 niveaux, un projet fil rouge. Chaque niveau ajoute une brique a
-              la meme app.
+              7 niveaux, un projet fil rouge. Chaque niveau ajoute une brique à
+              la même app.
             </p>
           </Card>
           <Card className="p-6 bg-card border-border space-y-3">
             <MessageCircleQuestion className="w-8 h-8 text-blue-400" />
             <h3 className="font-semibold">Aucun mot incompris</h3>
             <p className="text-sm text-muted-foreground">
-              Chaque terme technique est souligne. Au survol, tu as
+              Chaque terme technique est souligné. Au survol, tu as
               l&apos;explication. Au clic, tu approfondis.
             </p>
           </Card>
           <Card className="p-6 bg-card border-border space-y-3">
             <Lightbulb className="w-8 h-8 text-green-400" />
-            <h3 className="font-semibold">Exemples du monde reel</h3>
+            <h3 className="font-semibold">Exemples du monde réel</h3>
             <p className="text-sm text-muted-foreground">
-              Chaque fonctionnalite Firebase est illustree avec des exemples
+              Chaque fonctionnalité Firebase est illustrée avec des exemples
               concrets (Netflix, Uber, Spotify...).
             </p>
           </Card>
@@ -141,12 +141,12 @@ export default function Home() {
 
       {/* CTA final */}
       <section className="py-20 text-center space-y-6">
-        <h2 className="text-2xl md:text-3xl font-bold">Pret a commencer ?</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">Prêt à commencer ?</h2>
         <p className="text-muted-foreground">
-          Aucun prerequis Firebase. Juste les bases de JavaScript et React.
+          Aucun prérequis Firebase. Juste les bases de JavaScript et React.
         </p>
         <Button render={<a href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
-          Niveau 0 — Decouverte
+          Niveau 0 — Découverte
           <ArrowRight className="w-4 h-4" />
         </Button>
       </section>
@@ -154,7 +154,7 @@ export default function Home() {
       {/* Createur */}
       <section className="pb-16 text-center space-y-2">
         <p className="text-sm text-muted-foreground">
-          Cree par <span className="text-foreground font-medium">Jean-Michel</span>
+          Créé par <span className="text-foreground font-medium">Jean-Michel</span>
         </p>
         <a
           href="https://wa.me/33608183338"

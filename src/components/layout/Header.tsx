@@ -12,7 +12,7 @@ const navItems = [
   { href: "/formation", label: "Formation" },
   { href: "/glossaire", label: "Glossaire" },
   { href: "/exemples", label: "Exemples" },
-  { href: "/reference", label: "Reference" },
+  { href: "/reference", label: "Référence" },
 ];
 
 export function Header() {
@@ -71,7 +71,7 @@ export function Header() {
                     variant="ghost"
                     size="icon"
                     onClick={logout}
-                    title="Se deconnecter"
+                    title="Se déconnecter"
                   >
                     <LogOut className="w-4 h-4 text-muted-foreground" />
                   </Button>
@@ -141,7 +141,7 @@ export function Header() {
                           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
                         >
                           <LogOut className="w-4 h-4" />
-                          Se deconnecter
+                          Se déconnecter
                         </button>
                       </div>
                     ) : (

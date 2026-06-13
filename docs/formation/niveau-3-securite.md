@@ -1,38 +1,38 @@
-# Niveau 3 - La securite
+# Niveau 3 - La sécurité
 
 ## Table des Matières
 
 - [Objectif](#objectif)
-- [Les regles de securite en 2 minutes](#les-regles-de-securite-en-2-minutes)
-- [Etape 1 - Comprendre le danger du mode test](#etape-1---comprendre-le-danger-du-mode-test)
-- [Etape 2 - Ecrire les regles Firestore](#etape-2---ecrire-les-regles-firestore)
-- [Etape 3 - Tester les regles](#etape-3---tester-les-regles)
-- [Etape 4 - Regles avancees](#etape-4---regles-avancees)
-- [Etape 5 - Deployer les regles](#etape-5---deployer-les-regles)
+- [Les règles de sécurité en 2 minutes](#les-règles-de-sécurité-en-2-minutes)
+- [Étape 1 - Comprendre le danger du mode test](#étape-1---comprendre-le-danger-du-mode-test)
+- [Étape 2 - Écrire les règles Firestore](#étape-2---écrire-les-règles-firestore)
+- [Étape 3 - Tester les règles](#étape-3---tester-les-règles)
+- [Étape 4 - Règles avancées](#étape-4---règles-avancées)
+- [Étape 5 - Déployer les règles](#étape-5---déployer-les-règles)
 - [Ce que tu sais faire maintenant](#ce-que-tu-sais-faire-maintenant)
 
 ## Objectif
 
-A la fin de ce niveau, tu auras :
+À la fin de ce niveau, tu auras :
 
-- Des regles de securite qui protegent les notes de chaque utilisateur
-- La validation des donnees cote serveur
-- La certitude que personne ne peut acceder aux donnees d'un autre
+- Des règles de sécurité qui protègent les notes de chaque utilisateur
+- La validation des données côté serveur
+- La certitude que personne ne peut accéder aux données d'un autre
 
-## Les regles de securite en 2 minutes
+## Les règles de sécurité en 2 minutes
 
-Au niveau 1, on a active Firestore en **mode test**. Ca veut dire que n'importe qui peut lire et ecrire n'importe quoi dans ta base. En production, c'est une catastrophe.
+Au niveau 1, on a activé Firestore en **mode test**. Ça veut dire que n'importe qui peut lire et écrire n'importe quoi dans ta base. En production, c'est une catastrophe.
 
-Les regles de securite, c'est un **vigile a l'entree de chaque donnee**. Pour chaque requete, il verifie :
+Les règles de sécurité, c'est un **vigile à l'entrée de chaque donnée**. Pour chaque requête, il vérifie :
 
-1. **Qui demande ?** (authentifie ou non, quel utilisateur)
-2. **Quoi ?** (lecture, ecriture, suppression)
-3. **Sur quelle donnee ?** (quel document, quelle collection)
-4. **Les donnees sont-elles valides ?** (format, taille, champs obligatoires)
+1. **Qui demande ?** (authentifié ou non, quel utilisateur)
+2. **Quoi ?** (lecture, écriture, suppression)
+3. **Sur quelle donnée ?** (quel document, quelle collection)
+4. **Les données sont-elles valides ?** (format, taille, champs obligatoires)
 
-Les regles s'executent sur les serveurs Firebase, jamais dans le navigateur. Impossible a contourner.
+Les règles s'exécutent sur les serveurs Firebase, jamais dans le navigateur. Impossible à contourner.
 
-## Etape 1 - Comprendre le danger du mode test
+## Étape 1 - Comprendre le danger du mode test
 
 Voici ce que le mode test autorise :
 
@@ -47,36 +47,36 @@ service cloud.firestore {
 }
 ```
 
-Le probleme :
+Le problème :
 
 - N'importe qui peut lire toutes tes notes
-- N'importe qui peut supprimer ta base entiere
-- N'importe qui peut ecrire n'importe quoi
+- N'importe qui peut supprimer ta base entière
+- N'importe qui peut écrire n'importe quoi
 
-On va corriger ca.
+On va corriger ça.
 
-## Etape 2 - Ecrire les regles Firestore
+## Étape 2 - Écrire les règles Firestore
 
-Ouvre le fichier `firestore.rules` a la racine de ton projet :
+Ouvre le fichier `firestore.rules` à la racine de ton projet :
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Par defaut, tout est bloque
+    // Par défaut, tout est bloqué
     match /{document=**} {
       allow read, write: if false;
     }
 
-    // Regles pour les notes
+    // Règles pour les notes
     match /notes/{noteId} {
 
       // Lire : seulement si c'est TA note
       allow read: if request.auth != null
                   && resource.data.userId == request.auth.uid;
 
-      // Creer : seulement si tu es connecte et que tu mets TON userId
+      // Créer : seulement si tu es connecté et que tu mets TON userId
       allow create: if request.auth != null
                     && request.resource.data.userId == request.auth.uid
                     && request.resource.data.titre is string
@@ -97,76 +97,76 @@ service cloud.firestore {
 }
 ```
 
-### Decryptage ligne par ligne
+### Décryptage ligne par ligne
 
-| Expression | Signification |
-| ---------- | ------------- |
-| `request.auth != null` | L'utilisateur est connecte |
-| `request.auth.uid` | L'ID de l'utilisateur connecte |
-| `resource.data` | Les donnees existantes du document (avant modification) |
-| `request.resource.data` | Les nouvelles donnees envoyees (creation ou modification) |
-| `is string` | Verifie que le champ est bien du texte |
-| `.size() > 0` | Le champ ne doit pas etre vide |
-| `.size() <= 200` | Le titre fait max 200 caracteres |
+| Expression               | Signification                                              |
+| ------------------------ | ---------------------------------------------------------- |
+| `request.auth != null`   | L'utilisateur est connecté                                 |
+| `request.auth.uid`       | L'ID de l'utilisateur connecté                             |
+| `resource.data`          | Les données existantes du document (avant modification)    |
+| `request.resource.data`  | Les nouvelles données envoyées (création ou modification)  |
+| `is string`              | Vérifie que le champ est bien du texte                     |
+| `.size() > 0`            | Le champ ne doit pas être vide                             |
+| `.size() <= 200`         | Le titre fait max 200 caractères                           |
 
-### Le principe cle
+### Le principe clé
 
-Chaque regle repond a une question simple : **"Est-ce que CET utilisateur a le droit de faire CETTE action sur CE document ?"**
+Chaque règle répond à une question simple : **"Est-ce que CET utilisateur a le droit de faire CETTE action sur CE document ?"**
 
-## Etape 3 - Tester les regles
+## Étape 3 - Tester les règles
 
-### Avec l'emulateur
+### Avec l'émulateur
 
-L'emulateur Firebase charge automatiquement ton fichier `firestore.rules`. Chaque requete est evaluee contre ces regles.
+L'émulateur Firebase charge automatiquement ton fichier `firestore.rules`. Chaque requête est évaluée contre ces règles.
 
-1. Demarre l'emulateur : `firebase emulators:start`
+1. Démarre l'émulateur : `firebase emulators:start`
 2. Ouvre l'interface : `http://localhost:4000`
-3. Essaie de lire/ecrire des donnees
-4. Les requetes refusees apparaissent en rouge dans les logs
+3. Essaie de lire/écrire des données
+4. Les requêtes refusées apparaissent en rouge dans les logs
 
 ### Avec le playground de la console
 
-1. Console Firebase > Firestore > **Regles**
-2. Clique sur **Playground des regles**
-3. Simule des requetes avec differents utilisateurs
-4. Verifie que les acces sont correctement bloques/autorises
+1. Console Firebase > Firestore > **Règles**
+2. Clique sur **Playground des règles**
+3. Simule des requêtes avec différents utilisateurs
+4. Vérifie que les accès sont correctement bloqués/autorisés
 
-### Scenarii a tester
+### Scénarii à tester
 
-| Test | Resultat attendu |
-| ---- | ----------------- |
-| Lire mes notes (connecte) | Autorise |
-| Lire les notes d'un autre | Refuse |
-| Creer une note sans etre connecte | Refuse |
-| Creer une note avec le userId d'un autre | Refuse |
-| Modifier ma note | Autorise |
-| Modifier la note d'un autre | Refuse |
-| Supprimer ma note | Autorise |
-| Creer une note avec un titre vide | Refuse |
-| Creer une note avec un titre de 500 caracteres | Refuse |
+| Test                                          | Résultat attendu |
+| --------------------------------------------- | ---------------- |
+| Lire mes notes (connecté)                     | Autorisé         |
+| Lire les notes d'un autre                     | Refusé           |
+| Créer une note sans être connecté             | Refusé           |
+| Créer une note avec le userId d'un autre      | Refusé           |
+| Modifier ma note                              | Autorisé         |
+| Modifier la note d'un autre                   | Refusé           |
+| Supprimer ma note                             | Autorisé         |
+| Créer une note avec un titre vide             | Refusé           |
+| Créer une note avec un titre de 500 caractères | Refusé           |
 
-## Etape 4 - Regles avancees
+## Étape 4 - Règles avancées
 
-### Fonctions personnalisees
+### Fonctions personnalisées
 
-Pour eviter la repetition, cree des fonctions dans tes regles :
+Pour éviter la répétition, crée des fonctions dans tes règles :
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Fonction : l'utilisateur est-il connecte ?
+    // Fonction : l'utilisateur est-il connecté ?
     function estConnecte() {
       return request.auth != null;
     }
 
-    // Fonction : est-ce le proprietaire du document ?
+    // Fonction : est-ce le propriétaire du document ?
     function estProprietaire() {
       return estConnecte() && resource.data.userId == request.auth.uid;
     }
 
-    // Fonction : le userId dans les nouvelles donnees correspond a l'utilisateur ?
+    // Fonction : le userId dans les nouvelles données correspond à l'utilisateur ?
     function userIdValide() {
       return request.resource.data.userId == request.auth.uid;
     }
@@ -183,50 +183,50 @@ service cloud.firestore {
 
 Plus lisible, plus maintenable.
 
-### Preparer le partage de notes (niveau suivant)
+### Préparer le partage de notes (niveau suivant)
 
-On peut deja prevoir une structure pour les notes partagees :
+On peut déjà prévoir une structure pour les notes partagées :
 
 ```
 match /notes/{noteId} {
-  // Le proprietaire OU quelqu'un dans la liste de partage
+  // Le propriétaire OU quelqu'un dans la liste de partage
   allow read: if estConnecte()
               && (resource.data.userId == request.auth.uid
                   || request.auth.uid in resource.data.partageAvec);
 }
 ```
 
-On implementera ca en detail plus tard.
+On implémentera ça en détail plus tard.
 
-## Etape 5 - Deployer les regles
+## Étape 5 - Déployer les règles
 
 ```bash
 firebase deploy --only firestore:rules
 ```
 
-C'est tout. Les regles sont immediatement actives en production.
+C'est tout. Les règles sont immédiatement actives en production.
 
-> Deploie les regles AVANT de mettre l'app en production.
-> En mode test, ta base est vulnerable.
+> Déploie les règles AVANT de mettre l'app en production.
+> En mode test, ta base est vulnérable.
 
 ## Ce que tu sais faire maintenant
 
-- Ecrire des regles de securite Firestore
-- Proteger les donnees par utilisateur
-- Valider le format des donnees cote serveur
-- Tester les regles avec l'emulateur
-- Deployer les regles en production
+- Écrire des règles de sécurité Firestore
+- Protéger les données par utilisateur
+- Valider le format des données côté serveur
+- Tester les règles avec l'émulateur
+- Déployer les règles en production
 
-### Concepts cles a retenir
+### Concepts clés à retenir
 
-| Concept | Ce que ca fait |
-| ------- | -------------- |
-| `request.auth` | Info sur l'utilisateur qui fait la requete |
-| `resource.data` | Donnees existantes du document |
-| `request.resource.data` | Nouvelles donnees envoyees |
-| `allow read` | Autorise `get` et `list` |
-| `allow write` | Autorise `create`, `update`, `delete` |
-| Fonctions | Factorisent la logique pour la lisibilite |
+| Concept                 | Ce que ça fait                                      |
+| ----------------------- | --------------------------------------------------- |
+| `request.auth`          | Info sur l'utilisateur qui fait la requête           |
+| `resource.data`         | Données existantes du document                      |
+| `request.resource.data` | Nouvelles données envoyées                           |
+| `allow read`            | Autorise `get` et `list`                             |
+| `allow write`           | Autorise `create`, `update`, `delete`                |
+| Fonctions               | Factorisent la logique pour la lisibilité            |
 
 ---
 

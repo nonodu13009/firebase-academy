@@ -12,7 +12,7 @@ export function Footer() {
               Firebase Academy
             </div>
             <p className="text-sm text-muted-foreground">
-              Formation Firebase de 0 a 100.
+              Formation Firebase de 0 à 100.
               <br />
               Fait avec Next.js + Firebase.
             </p>
@@ -81,7 +81,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="/reference" className="hover:text-foreground transition-colors">
-                  Fiches reference
+                  Fiches référence
                 </a>
               </li>
               <li>

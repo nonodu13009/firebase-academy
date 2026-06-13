@@ -3,42 +3,42 @@
 ## Table des Matières
 
 - [Objectif](#objectif)
-- [Etape 1 - Google Analytics](#etape-1---google-analytics)
-- [Etape 2 - Remote Config](#etape-2---remote-config)
-- [Etape 3 - Firebase AI Logic](#etape-3---firebase-ai-logic)
-- [Etape 4 - Performance Monitoring](#etape-4---performance-monitoring)
-- [Etape 5 - App Check](#etape-5---app-check)
+- [Étape 1 - Google Analytics](#etape-1---google-analytics)
+- [Étape 2 - Remote Config](#etape-2---remote-config)
+- [Étape 3 - Firebase AI Logic](#etape-3---firebase-ai-logic)
+- [Étape 4 - Performance Monitoring](#etape-4---performance-monitoring)
+- [Étape 5 - App Check](#etape-5---app-check)
 - [Ce que tu sais faire maintenant](#ce-que-tu-sais-faire-maintenant)
 - [La suite](#la-suite)
 
 ## Objectif
 
-A la fin de ce niveau, tu auras :
+À la fin de ce niveau, tu auras :
 
 - Des statistiques d'utilisation de NoteFlow
-- La possibilite de changer le comportement de l'app sans deployer
-- Un assistant IA integre pour resumer les notes
+- La possibilité de changer le comportement de l'app sans déployer
+- Un assistant IA intégré pour résumer les notes
 - Le monitoring des performances
 - La protection contre les abus
 
-## Etape 1 - Google Analytics
+## Étape 1 - Google Analytics
 
 ### En 2 minutes
 
-Analytics repond a une question simple : **"Que font les utilisateurs dans mon app ?"**
+Analytics répond à une question simple : **"Que font les utilisateurs dans mon app ?"**
 
-Tu sauras combien de personnes utilisent NoteFlow, quelles fonctionnalites sont populaires, d'ou viennent tes utilisateurs.
+Tu sauras combien de personnes utilisent NoteFlow, quelles fonctionnalités sont populaires, d'où viennent tes utilisateurs.
 
 ### Configurer
 
-Si tu as active Analytics a la creation du projet (niveau 0), c'est deja fait. Sinon :
+Si tu as activé Analytics à la création du projet (niveau 0), c'est déjà fait. Sinon :
 
 1. Console Firebase > **Analytics**
 2. Clique **Activer Google Analytics**
 
-### Tracker des evenements dans NoteFlow
+### Tracker des événements dans NoteFlow
 
-Le SDK collecte automatiquement les visites de pages. Pour les actions specifiques, ajoute des evenements :
+Le SDK collecte automatiquement les visites de pages. Pour les actions spécifiques, ajoute des événements :
 
 ```typescript
 import { getAnalytics, logEvent } from "firebase/analytics";
@@ -63,23 +63,23 @@ logEvent(analytics, "note_shared", {
 ### Ce que tu vois dans la console
 
 - **Utilisateurs actifs** : combien de personnes utilisent l'app en ce moment
-- **Evenements** : quelles actions sont les plus frequentes
-- **Retention** : combien d'utilisateurs reviennent
-- **Demographie** : pays, langue, appareil
+- **Événements** : quelles actions sont les plus fréquentes
+- **Rétention** : combien d'utilisateurs reviennent
+- **Démographie** : pays, langue, appareil
 
-## Etape 2 - Remote Config
+## Étape 2 - Remote Config
 
 ### En 2 minutes
 
-Remote Config permet de changer le comportement de l'app **sans deployer une nouvelle version**.
+Remote Config permet de changer le comportement de l'app **sans déployer une nouvelle version**.
 
-Cas concret : tu veux limiter le nombre de notes gratuites a 10. Demain, tu veux passer a 20. Avec Remote Config, tu changes la valeur dans la console Firebase et c'est instantane.
+Cas concret : tu veux limiter le nombre de notes gratuites à 10. Demain, tu veux passer à 20. Avec Remote Config, tu changes la valeur dans la console Firebase et c'est instantané.
 
 ### Configurer
 
 1. Console Firebase > **Remote Config**
-2. Clique **Creer une configuration**
-3. Ajoute un parametre : `max_notes_gratuites` = `10`
+2. Clique **Créer une configuration**
+3. Ajoute un paramètre : `max_notes_gratuites` = `10`
 4. Publie
 
 ### Utiliser dans l'app
@@ -107,18 +107,18 @@ const couleur = getValue(remoteConfig, "couleur_accent").asString();
 
 ### Cas d'usage pour NoteFlow
 
-| Parametre | Utilite |
-| --------- | ------- |
-| `max_notes_gratuites` | Limiter les notes en plan gratuit |
-| `feature_partage_actif` | Activer/desactiver le partage sans deployer |
-| `message_banniere` | Afficher un message d'annonce |
-| `couleur_accent` | Changer le theme sans deployer |
+| Paramètre               | Utilité                                      |
+| ------------------------ | -------------------------------------------- |
+| `max_notes_gratuites`    | Limiter les notes en plan gratuit             |
+| `feature_partage_actif`  | Activer/désactiver le partage sans déployer   |
+| `message_banniere`       | Afficher un message d'annonce                 |
+| `couleur_accent`         | Changer le thème sans déployer                |
 
-## Etape 3 - Firebase AI Logic
+## Étape 3 - Firebase AI Logic
 
 ### En 2 minutes
 
-Firebase AI Logic te donne acces aux modeles Gemini (l'IA de Google) directement depuis ton app. Pas besoin de gerer des cles API cote client ni de monter un serveur.
+Firebase AI Logic te donne accès aux modèles Gemini (l'IA de Google) directement depuis ton app. Pas besoin de gérer des clés API côté client ni de monter un serveur.
 
 ### Configurer
 
@@ -132,9 +132,9 @@ Firebase AI Logic te donne acces aux modeles Gemini (l'IA de Google) directement
 npm install @firebase/ai
 ```
 
-### Ajouter un resume automatique des notes
+### Ajouter un résumé automatique des notes
 
-Cree `src/lib/ai.ts` :
+Crée `src/lib/ai.ts` :
 
 ```typescript
 import app from "./firebase";
@@ -164,7 +164,7 @@ Contenu: ${contenu}`
 }
 ```
 
-### Integrer dans l'interface
+### Intégrer dans l'interface
 
 ```typescript
 import { resumerNote } from "@/lib/ai";
@@ -184,11 +184,11 @@ const handleResume = async () => {
 {resume && <p className="text-sm text-gray-500 mt-2 italic">{resume}</p>}
 ```
 
-## Etape 4 - Performance Monitoring
+## Étape 4 - Performance Monitoring
 
 ### En 2 minutes
 
-Performance Monitoring mesure automatiquement la vitesse de ton app : temps de chargement des pages, latence reseau, lenteurs.
+Performance Monitoring mesure automatiquement la vitesse de ton app : temps de chargement des pages, latence réseau, lenteurs.
 
 ### Configurer
 
@@ -202,12 +202,12 @@ const perf = getPerformance();
 C'est tout. Le SDK collecte automatiquement :
 
 - Le temps de chargement de chaque page
-- La latence des requetes reseau (Firestore, Storage)
+- La latence des requêtes réseau (Firestore, Storage)
 - Le First Contentful Paint
 
-### Traces personnalisees
+### Traces personnalisées
 
-Pour mesurer des operations specifiques :
+Pour mesurer des opérations spécifiques :
 
 ```typescript
 import { trace } from "firebase/performance";
@@ -225,22 +225,22 @@ t.stop();
 ### Ce que tu vois dans la console
 
 - Temps de chargement moyen par page
-- Latence reseau par endpoint
-- Tendances sur le temps (l'app ralentit ou accelere ?)
+- Latence réseau par endpoint
+- Tendances sur le temps (l'app ralentit ou accélère ?)
 - Segmentation par pays, appareil, version
 
-## Etape 5 - App Check
+## Étape 5 - App Check
 
 ### En 2 minutes
 
-App Check verifie que les requetes a Firebase viennent bien de TON app et pas d'un script malveillant. C'est un bouclier contre les abus.
+App Check vérifie que les requêtes à Firebase viennent bien de TON app et pas d'un script malveillant. C'est un bouclier contre les abus.
 
 ### Configurer pour le Web
 
 1. Console Firebase > **App Check**
-2. Selectionne ton app Web
+2. Sélectionne ton app Web
 3. Active **reCAPTCHA Enterprise**
-4. Note la cle de site
+4. Note la clé de site
 
 ### Activer dans l'app
 
@@ -265,51 +265,51 @@ if (process.env.NODE_ENV === "development") {
 }
 ```
 
-### Activer la verification
+### Activer la vérification
 
 1. Console Firebase > **App Check**
-2. Surveille les metriques pendant quelques jours
+2. Surveille les métriques pendant quelques jours
 3. Quand tu confirmes que le trafic est normal, active l'application (enforcement)
 
 ## Ce que tu sais faire maintenant
 
-- Tracker des evenements utilisateur avec Analytics
-- Modifier le comportement de l'app a distance avec Remote Config
-- Integrer l'IA Gemini pour resumer et analyser du texte
+- Tracker des événements utilisateur avec Analytics
+- Modifier le comportement de l'app à distance avec Remote Config
+- Intégrer l'IA Gemini pour résumer et analyser du texte
 - Surveiller les performances de l'app
-- Proteger l'app contre les abus avec App Check
+- Protéger l'app contre les abus avec App Check
 
 ## La suite
 
-Felicitations. Tu as construit NoteFlow de zero a la production, en passant par chaque couche de Firebase.
+Félicitations. Tu as construit NoteFlow de zéro à la production, en passant par chaque couche de Firebase.
 
-### Ce que tu maitrises
+### Ce que tu maîtrises
 
-| Niveau | Competence |
-| ------ | ---------- |
-| 0 | Projet Firebase, CLI, emulateur |
-| 1 | Firestore CRUD, temps reel |
-| 2 | Authentication, protection des pages |
-| 3 | Regles de securite, validation |
-| 4 | Cloud Storage, Cloud Functions |
-| 5 | Deploiement, CI/CD, domaine |
-| 6 | Analytics, Remote Config, IA, Performance, App Check |
+| Niveau | Compétence                                          |
+| ------ | --------------------------------------------------- |
+| 0      | Projet Firebase, CLI, émulateur                     |
+| 1      | Firestore CRUD, temps réel                          |
+| 2      | Authentication, protection des pages                |
+| 3      | Règles de sécurité, validation                      |
+| 4      | Cloud Storage, Cloud Functions                      |
+| 5      | Déploiement, CI/CD, domaine                         |
+| 6      | Analytics, Remote Config, IA, Performance, App Check |
 
 ### Pour aller plus loin
 
-- **Partage collaboratif** : permettre a plusieurs utilisateurs d'editer la meme note en temps reel
-- **Notifications push** : prevenir quand une note partagee est modifiee (Cloud Messaging)
+- **Partage collaboratif** : permettre à plusieurs utilisateurs d'éditer la même note en temps réel
+- **Notifications push** : prévenir quand une note partagée est modifiée (Cloud Messaging)
 - **Recherche full-text** : chercher dans le contenu des notes (Extensions ou Algolia)
-- **Mode hors ligne avance** : synchronisation quand l'utilisateur revient en ligne
-- **Tests automatises** : regles de securite + Cloud Functions
+- **Mode hors ligne avancé** : synchronisation quand l'utilisateur revient en ligne
+- **Tests automatisés** : règles de sécurité + Cloud Functions
 
 ### Ressources
 
-- Les 24 fiches de reference sont dans le dossier `docs/` (un fichier par produit Firebase)
+- Les 24 fiches de référence sont dans le dossier `docs/` (un fichier par produit Firebase)
 - [Documentation officielle Firebase](https://firebase.google.com/docs?hl=fr)
 - [Firebase YouTube](https://www.youtube.com/@firebase)
 - [Firebase Blog](https://firebase.blog)
 
 ---
 
-> Tu as termine la formation. Bravo.
+> Tu as terminé la formation. Bravo.

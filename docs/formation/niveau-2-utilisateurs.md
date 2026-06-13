@@ -4,50 +4,50 @@
 
 - [Objectif](#objectif)
 - [Authentication en 2 minutes](#authentication-en-2-minutes)
-- [Etape 1 - Activer Authentication](#etape-1---activer-authentication)
-- [Etape 2 - Le hook useAuth](#etape-2---le-hook-useauth)
-- [Etape 3 - Connexion avec Google](#etape-3---connexion-avec-google)
-- [Etape 4 - Connexion par email](#etape-4---connexion-par-email)
-- [Etape 5 - La page de connexion](#etape-5---la-page-de-connexion)
-- [Etape 6 - Proteger les pages](#etape-6---proteger-les-pages)
-- [Etape 7 - Associer les notes a un utilisateur](#etape-7---associer-les-notes-a-un-utilisateur)
+- [Étape 1 - Activer Authentication](#etape-1---activer-authentication)
+- [Étape 2 - Le hook useAuth](#etape-2---le-hook-useauth)
+- [Étape 3 - Connexion avec Google](#etape-3---connexion-avec-google)
+- [Étape 4 - Connexion par email](#etape-4---connexion-par-email)
+- [Étape 5 - La page de connexion](#etape-5---la-page-de-connexion)
+- [Étape 6 - Protéger les pages](#etape-6---proteger-les-pages)
+- [Étape 7 - Associer les notes à un utilisateur](#etape-7---associer-les-notes-a-un-utilisateur)
 - [Ce que tu sais faire maintenant](#ce-que-tu-sais-faire-maintenant)
 
 ## Objectif
 
-A la fin de ce niveau, tu auras :
+À la fin de ce niveau, tu auras :
 
 - Connexion Google et email/mot de passe
 - Chaque utilisateur ne voit que SES notes
-- Les pages protegees (pas de contenu sans connexion)
+- Les pages protégées (pas de contenu sans connexion)
 - Un profil utilisateur basique
 
 ## Authentication en 2 minutes
 
-Imagine un videur de boite de nuit. Il verifie ton identite, te donne un bracelet, et tant que tu portes le bracelet tu peux entrer et sortir librement.
+Imagine un videur de boîte de nuit. Il vérifie ton identité, te donne un bracelet, et tant que tu portes le bracelet tu peux entrer et sortir librement.
 
 Firebase Authentication, c'est le videur :
 
-- Il verifie qui tu es (Google, email, telephone...)
+- Il vérifie qui tu es (Google, email, téléphone...)
 - Il te donne un **token** (le bracelet)
-- Ton app verifie le token a chaque action
+- Ton app vérifie le token à chaque action
 
-Toi, tu n'as pas a gerer les mots de passe, le chiffrement, les sessions. Firebase s'en occupe.
+Toi, tu n'as pas à gérer les mots de passe, le chiffrement, les sessions. Firebase s'en occupe.
 
-## Etape 1 - Activer Authentication
+## Étape 1 - Activer Authentication
 
 1. Console Firebase > **Authentication** dans le menu
 2. Clique **Commencer**
-3. Onglet **Methode de connexion**
+3. Onglet **Méthode de connexion**
 4. Active **Google** (le plus simple pour commencer)
-   - Selectionne ton email comme email d'assistance
+   - Sélectionne ton email comme email d'assistance
    - Clique **Enregistrer**
 5. Active **Adresse e-mail/Mot de passe**
    - Clique **Enregistrer**
 
-## Etape 2 - Le hook useAuth
+## Étape 2 - Le hook useAuth
 
-Cree un hook React qui gere tout l'etat d'authentification. Cree `src/hooks/useAuth.ts` :
+Crée un hook React qui gère tout l'état d'authentification. Crée `src/hooks/useAuth.ts` :
 
 ```typescript
 "use client";
@@ -83,13 +83,13 @@ export function useAuth() {
 
 Ce qui se passe :
 
-- `onAuthStateChanged` ecoute l'etat de connexion en continu
-- Quand l'utilisateur se connecte ou se deconnecte, le state se met a jour
-- `loading` est `true` tant qu'on ne sait pas si l'utilisateur est connecte ou non
+- `onAuthStateChanged` écoute l'état de connexion en continu
+- Quand l'utilisateur se connecte ou se déconnecte, le state se met à jour
+- `loading` est `true` tant qu'on ne sait pas si l'utilisateur est connecté ou non
 
-## Etape 3 - Connexion avec Google
+## Étape 3 - Connexion avec Google
 
-Cree `src/lib/auth.ts` :
+Crée `src/lib/auth.ts` :
 
 ```typescript
 import { auth } from "./firebase";
@@ -121,28 +121,28 @@ export async function connexionEmail(email: string, motDePasse: string) {
 }
 ```
 
-Trois methodes, trois cas d'usage :
+Trois méthodes, trois cas d'usage :
 
-- `signInWithPopup` : ouvre une fenetre Google, l'utilisateur choisit son compte, c'est fait
-- `createUserWithEmailAndPassword` : cree un nouveau compte
+- `signInWithPopup` : ouvre une fenêtre Google, l'utilisateur choisit son compte, c'est fait
+- `createUserWithEmailAndPassword` : crée un nouveau compte
 - `signInWithEmailAndPassword` : connecte un compte existant
 
-## Etape 4 - Connexion par email
+## Étape 4 - Connexion par email
 
-Le flux email a deux etapes : inscription (creation de compte) et connexion (compte existant).
+Le flux email a deux étapes : inscription (création de compte) et connexion (compte existant).
 
-Les erreurs courantes a gerer :
+Les erreurs courantes à gérer :
 
-| Code d'erreur | Signification | Message a afficher |
-| ------------- | ------------- | ------------------ |
-| `auth/email-already-in-use` | Compte deja existant | "Un compte existe deja avec cet email" |
-| `auth/wrong-password` | Mauvais mot de passe | "Mot de passe incorrect" |
-| `auth/user-not-found` | Pas de compte | "Aucun compte avec cet email" |
-| `auth/weak-password` | Mot de passe trop court | "Le mot de passe doit faire au moins 6 caracteres" |
+| Code d'erreur                | Signification         | Message à afficher                                    |
+| ---------------------------- | --------------------- | ----------------------------------------------------- |
+| `auth/email-already-in-use`  | Compte déjà existant  | "Un compte existe déjà avec cet email"                |
+| `auth/wrong-password`        | Mauvais mot de passe  | "Mot de passe incorrect"                              |
+| `auth/user-not-found`        | Pas de compte         | "Aucun compte avec cet email"                         |
+| `auth/weak-password`         | Mot de passe trop court | "Le mot de passe doit faire au moins 6 caractères"  |
 
-## Etape 5 - La page de connexion
+## Étape 5 - La page de connexion
 
-Cree `src/app/connexion/page.tsx` :
+Crée `src/app/connexion/page.tsx` :
 
 ```typescript
 "use client";
@@ -246,11 +246,11 @@ export default function Connexion() {
 }
 ```
 
-## Etape 6 - Proteger les pages
+## Étape 6 - Protéger les pages
 
-Cree un composant qui bloque l'acces aux pages si l'utilisateur n'est pas connecte.
+Crée un composant qui bloque l'accès aux pages si l'utilisateur n'est pas connecté.
 
-Cree `src/components/AuthGuard.tsx` :
+Crée `src/components/AuthGuard.tsx` :
 
 ```typescript
 "use client";
@@ -283,7 +283,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 }
 ```
 
-Utilise-le dans ton layout ou dans chaque page protegee :
+Utilise-le dans ton layout ou dans chaque page protégée :
 
 ```typescript
 // src/app/page.tsx
@@ -292,15 +292,15 @@ import AuthGuard from "@/components/AuthGuard";
 export default function Home() {
   return (
     <AuthGuard>
-      {/* ton contenu protege ici */}
+      {/* ton contenu protégé ici */}
     </AuthGuard>
   );
 }
 ```
 
-## Etape 7 - Associer les notes a un utilisateur
+## Étape 7 - Associer les notes à un utilisateur
 
-Chaque note doit appartenir a un utilisateur. Modifie `src/lib/notes.ts` :
+Chaque note doit appartenir à un utilisateur. Modifie `src/lib/notes.ts` :
 
 ```typescript
 import { db, auth } from "./firebase";
@@ -326,10 +326,10 @@ export interface Note {
   modifieLe?: Date;
 }
 
-// Creer une note liee a l'utilisateur connecte
+// Créer une note liée à l'utilisateur connecté
 export async function creerNote(titre: string, contenu: string) {
   const user = auth.currentUser;
-  if (!user) throw new Error("Non connecte");
+  if (!user) throw new Error("Non connecté");
 
   const docRef = await addDoc(collection(db, "notes"), {
     titre,
@@ -342,10 +342,10 @@ export async function creerNote(titre: string, contenu: string) {
   return docRef.id;
 }
 
-// Ecouter uniquement les notes de l'utilisateur connecte
+// Écouter uniquement les notes de l'utilisateur connecté
 export function ecouterMesNotes(callback: (notes: Note[]) => void) {
   const user = auth.currentUser;
-  if (!user) throw new Error("Non connecte");
+  if (!user) throw new Error("Non connecté");
 
   const q = query(
     collection(db, "notes"),
@@ -364,26 +364,26 @@ export function ecouterMesNotes(callback: (notes: Note[]) => void) {
 }
 ```
 
-Le changement cle : `where("userId", "==", user.uid)` filtre les notes pour ne montrer que celles de l'utilisateur connecte.
+Le changement clé : `where("userId", "==", user.uid)` filtre les notes pour ne montrer que celles de l'utilisateur connecté.
 
 ## Ce que tu sais faire maintenant
 
 - Configurer l'authentification Google et email
-- Creer un hook React pour l'etat de connexion
+- Créer un hook React pour l'état de connexion
 - Construire une page de connexion/inscription
-- Proteger des pages contre les acces non autorises
-- Lier les donnees a un utilisateur specifique
+- Protéger des pages contre les accès non autorisés
+- Lier les données à un utilisateur spécifique
 
-### Concepts cles a retenir
+### Concepts clés à retenir
 
-| Concept | Ce que ca fait |
-| ------- | -------------- |
-| `onAuthStateChanged` | Ecoute l'etat de connexion en continu |
-| `signInWithPopup` | Connexion via un fournisseur (Google) |
-| `auth.currentUser` | L'utilisateur actuellement connecte |
-| `user.uid` | L'identifiant unique de l'utilisateur |
-| `where("userId", "==", uid)` | Filtre les documents par proprietaire |
+| Concept                          | Ce que ça fait                              |
+| -------------------------------- | ------------------------------------------- |
+| `onAuthStateChanged`             | Écoute l'état de connexion en continu       |
+| `signInWithPopup`                | Connexion via un fournisseur (Google)       |
+| `auth.currentUser`               | L'utilisateur actuellement connecté         |
+| `user.uid`                       | L'identifiant unique de l'utilisateur       |
+| `where("userId", "==", uid)`     | Filtre les documents par propriétaire       |
 
 ---
 
-> Passe au [Niveau 3 - La securite](niveau-3-securite.md) pour verrouiller l'acces a tes donnees.
+> Passe au [Niveau 3 - La sécurité](niveau-3-securite.md) pour verrouiller l'accès à tes données.

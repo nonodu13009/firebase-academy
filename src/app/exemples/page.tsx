@@ -11,38 +11,38 @@ type Filter = "all" | "build" | "run" | "ia";
 const exemples: Record<string, { brief: string; examples: string[] }> = {
   authentication: {
     brief:
-      "Le systeme qui gere 'qui est connecte' dans ton app. Tu ne codes pas la gestion des mots de passe, Firebase le fait.",
+      "Le système qui gère 'qui est connecté' dans ton app. Tu ne codes pas la gestion des mots de passe, Firebase le fait.",
     examples: [
       "Spotify : 'Se connecter avec Google', l'app ne voit jamais ton mot de passe",
-      "Notion : connexion Google, Apple ou email, tu retrouves tout sur un nouveau telephone",
-      "WhatsApp : verification par SMS a l'installation",
+      "Notion : connexion Google, Apple ou email, tu retrouves tout sur un nouveau téléphone",
+      "WhatsApp : vérification par SMS à l'installation",
     ],
   },
   firestore: {
     brief:
-      "Un endroit pour stocker les donnees structurees de ton app (textes, chiffres, listes). Synchronisation en temps reel.",
+      "Un endroit pour stocker les données structurées de ton app (textes, chiffres, listes). Synchronisation en temps réel.",
     examples: [
-      "Google Keep : tes notes se synchronisent instantanement entre telephone et ordi",
-      "Trello : quand un collegue deplace une carte, tu le vois en direct",
-      "E-commerce : quand le stock passe a 0, le bouton Acheter disparait pour tous",
+      "Google Keep : tes notes se synchronisent instantanément entre téléphone et ordi",
+      "Trello : quand un collègue déplace une carte, tu le vois en direct",
+      "E-commerce : quand le stock passe à 0, le bouton Acheter disparaît pour tous",
     ],
   },
   "cloud-storage": {
     brief:
-      "Un disque dur dans le cloud pour stocker des fichiers : photos, videos, PDF.",
+      "Un disque dur dans le cloud pour stocker des fichiers : photos, vidéos, PDF.",
     examples: [
-      "Instagram : la photo que tu postes est envoyee sur un stockage cloud, l'app recoit une URL",
-      "Google Drive : les fichiers uploades sont stockes sur des serveurs distants",
+      "Instagram : la photo que tu postes est envoyée sur un stockage cloud, l'app reçoit une URL",
+      "Google Drive : les fichiers uploadés sont stockés sur des serveurs distants",
       "Petites annonces : le vendeur uploade les photos de son meuble, les URLs vont dans la base",
     ],
   },
   "cloud-functions": {
     brief:
-      "Du code qui tourne sur les serveurs Google, sans que tu geres de serveur.",
+      "Du code qui tourne sur les serveurs Google, sans que tu gères de serveur.",
     examples: [
       "Email de bienvenue automatique quand un utilisateur s'inscrit",
-      "Moderation de contenu : verifier les commentaires avant publication",
-      "Redimensionnement d'image automatique apres upload",
+      "Modération de contenu : vérifier les commentaires avant publication",
+      "Redimensionnement d'image automatique après upload",
     ],
   },
   hosting: {
@@ -50,53 +50,53 @@ const exemples: Record<string, { brief: string; examples: string[] }> = {
       "Le service qui met ton site en ligne sur un CDN mondial en une commande.",
     examples: [
       "Portfolio personnel : tu tapes firebase deploy, il est en ligne en 30 secondes",
-      "Landing page : rapide, distribuee mondialement, HTTPS automatique",
-      "SPA React/Next.js : hebergee et servie rapidement",
+      "Landing page : rapide, distribuée mondialement, HTTPS automatique",
+      "SPA React/Next.js : hébergée et servie rapidement",
     ],
   },
   analytics: {
     brief:
-      "Un systeme qui enregistre ce que font les utilisateurs pour comprendre comment ameliorer ton produit.",
+      "Un système qui enregistre ce que font les utilisateurs pour comprendre comment améliorer ton produit.",
     examples: [
-      "Decouvrir que 80% des utilisateurs ne finissent pas l'inscription",
+      "Découvrir que 80% des utilisateurs ne finissent pas l'inscription",
       "Mesurer combien de personnes utilisent le bouton Partager",
       "Savoir que 60% de tes utilisateurs viennent de France",
     ],
   },
   "remote-config": {
     brief:
-      "Un tableau de bord pour changer le comportement de l'app SANS deployer une nouvelle version.",
+      "Un tableau de bord pour changer le comportement de l'app SANS déployer une nouvelle version.",
     examples: [
-      "Changer le bandeau 'Soldes -30%' instantanement pour tous les utilisateurs",
-      "Activer une feature pour 5% des utilisateurs, puis monter a 100%",
-      "Tester 10 vs 20 resultats par page sans toucher au code",
+      "Changer le bandeau 'Soldes -30%' instantanément pour tous les utilisateurs",
+      "Activer une feature pour 5% des utilisateurs, puis monter à 100%",
+      "Tester 10 vs 20 résultats par page sans toucher au code",
     ],
   },
   "cloud-messaging": {
     brief:
-      "Le service qui envoie des notifications push sur le telephone ou dans le navigateur.",
+      "Le service qui envoie des notifications push sur le téléphone ou dans le navigateur.",
     examples: [
       "Uber Eats : 'Votre commande est en chemin !'",
-      "WhatsApp : notification quand tu recois un message",
-      "Blog : 'Nouvel article publie' pour les abonnes",
+      "WhatsApp : notification quand tu reçois un message",
+      "Blog : 'Nouvel article publié' pour les abonnés",
     ],
   },
   "ai-logic": {
     brief:
-      "Un acces direct aux modeles Gemini de Google depuis ton app, sans gerer de cles API cote client.",
+      "Un accès direct aux modèles Gemini de Google depuis ton app, sans gérer de clés API côté client.",
     examples: [
-      "Resume automatique d'un article de 3 pages en 3 phrases",
+      "Résumé automatique d'un article de 3 pages en 3 phrases",
       "Analyse de photo : extraire le montant d'un ticket de caisse",
-      "Chatbot integre qui repond aux questions des utilisateurs",
+      "Chatbot intégré qui répond aux questions des utilisateurs",
     ],
   },
   "app-check": {
     brief:
-      "Un bouclier qui verifie que les requetes viennent de TON app, pas d'un script pirate.",
+      "Un bouclier qui vérifie que les requêtes viennent de TON app, pas d'un script pirate.",
     examples: [
-      "Bloquer un script qui aspire toutes les donnees de ta base",
-      "Empecher un bot de faire des milliers de requetes pour exploser ta facture",
-      "Rejeter les faux scores envoyes par un tricheur dans un jeu",
+      "Bloquer un script qui aspire toutes les données de ta base",
+      "Empêcher un bot de faire des milliers de requêtes pour exploser ta facture",
+      "Rejeter les faux scores envoyés par un tricheur dans un jeu",
     ],
   },
 };
@@ -114,7 +114,7 @@ export default function ExemplesPage() {
       <div className="space-y-3">
         <h1 className="text-3xl md:text-4xl font-bold">Exemples concrets</h1>
         <p className="text-muted-foreground">
-          Chaque produit Firebase explique avec des exemples du monde reel.
+          Chaque produit Firebase expliqué avec des exemples du monde réel.
         </p>
       </div>
 

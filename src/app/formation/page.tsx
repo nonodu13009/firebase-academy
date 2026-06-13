@@ -15,7 +15,7 @@ export default function FormationPage() {
       <div className="space-y-3">
         <h1 className="text-3xl md:text-4xl font-bold">Formation Firebase</h1>
         <p className="text-muted-foreground">
-          7 niveaux pour maitriser Firebase en construisant NoteFlow, une app de
+          7 niveaux pour maîtriser Firebase en construisant NoteFlow, une app de
           notes collaborative.
         </p>
       </div>

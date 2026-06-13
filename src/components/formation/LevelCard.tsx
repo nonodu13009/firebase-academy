@@ -13,9 +13,9 @@ interface Props {
 }
 
 const statusConfig = {
-  "not-started": { icon: Circle, label: "A faire", color: "text-muted-foreground" },
+  "not-started": { icon: Circle, label: "À faire", color: "text-muted-foreground" },
   "in-progress": { icon: Loader2, label: "En cours", color: "text-orange-400" },
-  completed: { icon: CheckCircle2, label: "Termine", color: "text-green-400" },
+  completed: { icon: CheckCircle2, label: "Terminé", color: "text-green-400" },
 };
 
 export function LevelCard({ level, status }: Props) {

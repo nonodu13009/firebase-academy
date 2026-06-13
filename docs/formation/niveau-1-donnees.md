@@ -1,35 +1,35 @@
-# Niveau 1 - Les donnees
+# Niveau 1 - Les données
 
 ## Table des Matières
 
 - [Objectif](#objectif)
 - [Firestore en 2 minutes](#firestore-en-2-minutes)
-- [Etape 1 - Activer Firestore](#etape-1---activer-firestore)
-- [Etape 2 - Creer une note](#etape-2---creer-une-note)
-- [Etape 3 - Lire les notes](#etape-3---lire-les-notes)
-- [Etape 4 - Modifier une note](#etape-4---modifier-une-note)
-- [Etape 5 - Supprimer une note](#etape-5---supprimer-une-note)
-- [Etape 6 - Ecouter en temps reel](#etape-6---ecouter-en-temps-reel)
-- [Etape 7 - Construire l'interface](#etape-7---construire-linterface)
+- [Étape 1 - Activer Firestore](#etape-1---activer-firestore)
+- [Étape 2 - Créer une note](#etape-2---creer-une-note)
+- [Étape 3 - Lire les notes](#etape-3---lire-les-notes)
+- [Étape 4 - Modifier une note](#etape-4---modifier-une-note)
+- [Étape 5 - Supprimer une note](#etape-5---supprimer-une-note)
+- [Étape 6 - Écouter en temps réel](#etape-6---ecouter-en-temps-reel)
+- [Étape 7 - Construire l'interface](#etape-7---construire-linterface)
 - [Ce que tu sais faire maintenant](#ce-que-tu-sais-faire-maintenant)
 
 ## Objectif
 
-A la fin de ce niveau, tu auras :
+À la fin de ce niveau, tu auras :
 
-- Un CRUD complet (Creer, Lire, Modifier, Supprimer) de notes
-- Les notes qui se mettent a jour en temps reel
-- Une interface fonctionnelle pour gerer tes notes
+- Un CRUD complet (Créer, Lire, Modifier, Supprimer) de notes
+- Les notes qui se mettent à jour en temps réel
+- Une interface fonctionnelle pour gérer tes notes
 
 ## Firestore en 2 minutes
 
-Firestore, c'est une base de donnees. Mais pas comme MySQL ou PostgreSQL.
+Firestore, c'est une base de données. Mais pas comme MySQL ou PostgreSQL.
 
-Pense a un **classeur** :
+Pense à un **classeur** :
 
-- Le **classeur** = ta base de donnees
+- Le **classeur** = ta base de données
 - Chaque **onglet** = une **collection** (ex: "notes", "users")
-- Chaque **fiche dans un onglet** = un **document** (ex: une note specifique)
+- Chaque **fiche dans un onglet** = un **document** (ex: une note spécifique)
 - Chaque **ligne sur la fiche** = un **champ** (ex: titre, contenu, date)
 
 Pas de tables, pas de colonnes, pas de SQL. Tu stockes des objets JSON dans des collections.
@@ -39,29 +39,29 @@ Pas de tables, pas de colonnes, pas de SQL. Tu stockes des objets JSON dans des 
 ```
 notes/                          <-- collection
   abc123/                       <-- document (ID automatique)
-    titre: "Ma premiere note"   <-- champ
+    titre: "Ma première note"   <-- champ
     contenu: "Hello Firebase"   <-- champ
     creeLe: 2026-06-07          <-- champ
   def456/
     titre: "Courses"
-    contenu: "Pain, lait, cafe"
+    contenu: "Pain, lait, café"
     creeLe: 2026-06-07
 ```
 
-## Etape 1 - Activer Firestore
+## Étape 1 - Activer Firestore
 
 1. Console Firebase > **Firestore Database** dans le menu de gauche
-2. Clique **Creer une base de donnees**
-3. Mode : **Mode test** (on securisera au niveau 3)
-4. Emplacement : `europe-west1` (Belgique) ou `eur3` (Europe multi-region)
+2. Clique **Créer une base de données**
+3. Mode : **Mode test** (on sécurisera au niveau 3)
+4. Emplacement : `europe-west1` (Belgique) ou `eur3` (Europe multi-région)
 5. Clique **Activer**
 
-> Le mode test autorise tout le monde a lire et ecrire pendant 30 jours.
+> Le mode test autorise tout le monde à lire et écrire pendant 30 jours.
 > C'est volontaire pour apprendre. On verrouillera au niveau 3.
 
-## Etape 2 - Creer une note
+## Étape 2 - Créer une note
 
-Cree `src/lib/notes.ts` :
+Crée `src/lib/notes.ts` :
 
 ```typescript
 import { db } from "./firebase";
@@ -80,7 +80,7 @@ export interface Note {
   modifieLe?: Date;
 }
 
-// Creer une nouvelle note
+// Créer une nouvelle note
 export async function creerNote(titre: string, contenu: string) {
   const docRef = await addDoc(collection(db, "notes"), {
     titre,
@@ -96,15 +96,15 @@ export async function creerNote(titre: string, contenu: string) {
 Ce qui se passe :
 
 - `collection(db, "notes")` pointe vers la collection "notes"
-- `addDoc` cree un nouveau document avec un ID genere automatiquement
+- `addDoc` crée un nouveau document avec un ID généré automatiquement
 - `serverTimestamp()` met la date du serveur (pas du navigateur)
-- Ca retourne l'ID du document cree
+- Ça retourne l'ID du document créé
 
 ### Teste dans la console du navigateur
 
-Tu peux tester rapidement en important cette fonction dans ta page principale et en l'appelant. Verifie dans l'emulateur Firestore (localhost:4000) que le document apparait.
+Tu peux tester rapidement en important cette fonction dans ta page principale et en l'appelant. Vérifie dans l'émulateur Firestore (localhost:4000) que le document apparaît.
 
-## Etape 3 - Lire les notes
+## Étape 3 - Lire les notes
 
 Ajoute dans `src/lib/notes.ts` :
 
@@ -141,13 +141,13 @@ export async function lireNote(id: string): Promise<Note | null> {
 }
 ```
 
-Deux facons de lire :
+Deux façons de lire :
 
-- `getDocs` : recupere plusieurs documents d'un coup (une liste)
-- `getDoc` : recupere un seul document par son ID
-- `query` + `orderBy` : trie les resultats (ici, les plus recentes en premier)
+- `getDocs` : récupère plusieurs documents d'un coup (une liste)
+- `getDoc` : récupère un seul document par son ID
+- `query` + `orderBy` : trie les résultats (ici, les plus récentes en premier)
 
-## Etape 4 - Modifier une note
+## Étape 4 - Modifier une note
 
 Ajoute dans `src/lib/notes.ts` :
 
@@ -169,7 +169,7 @@ export async function modifierNote(id: string, titre: string, contenu: string) {
 
 `updateDoc` ne touche qu'aux champs que tu lui donnes. Les autres champs restent intacts.
 
-## Etape 5 - Supprimer une note
+## Étape 5 - Supprimer une note
 
 Ajoute dans `src/lib/notes.ts` :
 
@@ -185,11 +185,11 @@ export async function supprimerNote(id: string) {
 }
 ```
 
-Simple. Un document supprime disparait immediatement de tous les ecrans connectes (grace au temps reel).
+Simple. Un document supprimé disparaît immédiatement de tous les écrans connectés (grâce au temps réel).
 
-## Etape 6 - Ecouter en temps reel
+## Étape 6 - Écouter en temps réel
 
-C'est la magie de Firestore. Au lieu de demander les donnees une fois, tu **ecoutes** les changements. Des qu'une note est ajoutee, modifiee ou supprimee, ton app le sait instantanement.
+C'est la magie de Firestore. Au lieu de demander les données une fois, tu **écoutes** les changements. Dès qu'une note est ajoutée, modifiée ou supprimée, ton app le sait instantanément.
 
 Ajoute dans `src/lib/notes.ts` :
 
@@ -199,11 +199,11 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-// Ecouter les notes en temps reel
+// Écouter les notes en temps réel
 export function ecouterNotes(callback: (notes: Note[]) => void) {
   const q = query(collection(db, "notes"), orderBy("creeLe", "desc"));
 
-  // onSnapshot retourne une fonction pour arreter l'ecoute
+  // onSnapshot retourne une fonction pour arrêter l'écoute
   const unsubscribe = onSnapshot(q, (snapshot) => {
     const notes = snapshot.docs.map((doc) => ({
       id: doc.id,
@@ -217,10 +217,10 @@ export function ecouterNotes(callback: (notes: Note[]) => void) {
 }
 ```
 
-La difference avec `getDocs` :
+La différence avec `getDocs` :
 
-- `getDocs` : tu demandes les donnees UNE fois
-- `onSnapshot` : tu ecoutes en CONTINU. Chaque modification declenche le callback.
+- `getDocs` : tu demandes les données UNE fois
+- `onSnapshot` : tu écoutes en CONTINU. Chaque modification déclenche le callback.
 
 ### Utilisation dans un composant React
 
@@ -234,12 +234,12 @@ export default function ListeNotes() {
   const [notes, setNotes] = useState<Note[]>([]);
 
   useEffect(() => {
-    // Commence a ecouter
+    // Commence à écouter
     const unsubscribe = ecouterNotes((nouvellesNotes) => {
       setNotes(nouvellesNotes);
     });
 
-    // Arrete d'ecouter quand le composant est demonte
+    // Arrête d'écouter quand le composant est démonté
     return () => unsubscribe();
   }, []);
 
@@ -256,9 +256,9 @@ export default function ListeNotes() {
 }
 ```
 
-## Etape 7 - Construire l'interface
+## Étape 7 - Construire l'interface
 
-Maintenant, assemble le tout dans une vraie page. Cree `src/app/page.tsx` :
+Maintenant, assemble le tout dans une vraie page. Crée `src/app/page.tsx` :
 
 ```typescript
 "use client";
@@ -361,27 +361,27 @@ export default function Home() {
 }
 ```
 
-Lance ton app (`npm run dev`) et l'emulateur (`firebase emulators:start`) en parallele. Tu as un gestionnaire de notes fonctionnel.
+Lance ton app (`npm run dev`) et l'émulateur (`firebase emulators:start`) en parallèle. Tu as un gestionnaire de notes fonctionnel.
 
 ## Ce que tu sais faire maintenant
 
-- Structurer des donnees dans Firestore (collections, documents, champs)
-- Creer, lire, modifier, supprimer des documents
-- Ecouter les changements en temps reel
-- Construire une interface CRUD complete
+- Structurer des données dans Firestore (collections, documents, champs)
+- Créer, lire, modifier, supprimer des documents
+- Écouter les changements en temps réel
+- Construire une interface CRUD complète
 
-### Concepts cles a retenir
+### Concepts clés à retenir
 
-| Concept | Ce que ca fait |
-| ------- | -------------- |
-| `addDoc` | Cree un document avec un ID auto |
-| `getDoc` | Lit un document par son ID |
-| `getDocs` | Lit plusieurs documents |
-| `updateDoc` | Modifie des champs d'un document |
-| `deleteDoc` | Supprime un document |
-| `onSnapshot` | Ecoute les changements en continu |
-| `query` + `orderBy` | Trie les resultats |
-| `serverTimestamp()` | Date du serveur (fiable) |
+| Concept              | Ce que ça fait                        |
+| -------------------- | ------------------------------------- |
+| `addDoc`             | Crée un document avec un ID auto      |
+| `getDoc`             | Lit un document par son ID            |
+| `getDocs`            | Lit plusieurs documents               |
+| `updateDoc`          | Modifie des champs d'un document      |
+| `deleteDoc`          | Supprime un document                  |
+| `onSnapshot`         | Écoute les changements en continu     |
+| `query` + `orderBy`  | Trie les résultats                    |
+| `serverTimestamp()`  | Date du serveur (fiable)              |
 
 ---
 

@@ -59,7 +59,7 @@ export function GlossaryTerm({ term, children }: Props) {
               className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300"
             >
               <BookOpen className="w-3 h-3" />
-              Fiche reference
+              Fiche référence
             </a>
           )}
         </div>

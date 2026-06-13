@@ -43,7 +43,7 @@ export default function ConnexionPage() {
     try {
       if (mode === "reset") {
         await resetPassword(email);
-        setSuccess("Email de reinitialisation envoye ! Verifie ta boite mail.");
+        setSuccess("Email de réinitialisation envoyé ! Vérifie ta boîte mail.");
         setMode("login");
       } else if (mode === "register") {
         await signUpWithEmail(email, password);
@@ -66,13 +66,13 @@ export default function ConnexionPage() {
           setError("Email ou mot de passe incorrect.");
           break;
         case "auth/email-already-in-use":
-          setError("Un compte existe deja avec cet email.");
+          setError("Un compte existe déjà avec cet email.");
           break;
         case "auth/weak-password":
-          setError("Le mot de passe doit faire au moins 6 caracteres.");
+          setError("Le mot de passe doit faire au moins 6 caractères.");
           break;
         default:
-          setError("Une erreur est survenue. Reessaie.");
+          setError("Une erreur est survenue. Réessaie.");
       }
     } finally {
       setLoading(false);
@@ -100,13 +100,13 @@ export default function ConnexionPage() {
           <Flame className="w-10 h-10 text-orange-400 mx-auto" />
           <h1 className="text-2xl font-bold">
             {mode === "login" && "Connexion"}
-            {mode === "register" && "Creer un compte"}
-            {mode === "reset" && "Mot de passe oublie"}
+            {mode === "register" && "Créer un compte"}
+            {mode === "reset" && "Mot de passe oublié"}
           </h1>
           <p className="text-sm text-muted-foreground">
             {mode === "login" && "Connecte-toi pour suivre ta progression"}
             {mode === "register" && "Inscris-toi pour sauvegarder ta progression"}
-            {mode === "reset" && "Entre ton email pour recevoir un lien de reinitialisation"}
+            {mode === "reset" && "Entre ton email pour recevoir un lien de réinitialisation"}
           </p>
         </div>
 
@@ -183,7 +183,7 @@ export default function ConnexionPage() {
               <div className="relative">
                 <Input
                   type={showPassword ? "text" : "password"}
-                  placeholder="6 caracteres minimum"
+                  placeholder="6 caractères minimum"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -215,7 +215,7 @@ export default function ConnexionPage() {
               }}
               className="text-xs text-orange-400 hover:text-orange-300"
             >
-              Mot de passe oublie ?
+              Mot de passe oublié ?
             </button>
           )}
 
@@ -229,7 +229,7 @@ export default function ConnexionPage() {
               : mode === "login"
                 ? "Se connecter"
                 : mode === "register"
-                  ? "Creer mon compte"
+                  ? "Créer mon compte"
                   : "Envoyer le lien"}
           </Button>
         </form>
@@ -253,7 +253,7 @@ export default function ConnexionPage() {
           )}
           {mode === "register" && (
             <>
-              Deja un compte ?{" "}
+              Déjà un compte ?{" "}
               <button
                 onClick={() => {
                   setMode("login");
@@ -276,7 +276,7 @@ export default function ConnexionPage() {
               className="flex items-center gap-1 text-orange-400 hover:text-orange-300 mx-auto"
             >
               <ArrowLeft className="w-3 h-3" />
-              Retour a la connexion
+              Retour à la connexion
             </button>
           )}
         </div>
@@ -287,7 +287,7 @@ export default function ConnexionPage() {
             href="/"
             className="text-xs text-muted-foreground hover:text-foreground"
           >
-            Retour a l&apos;accueil
+            Retour à l&apos;accueil
           </a>
         </div>
       </Card>

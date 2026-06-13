@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 export default function NiveauContent({ contentHtml }: { contentHtml: string | null }) {
   const params = useParams();
@@ -21,6 +21,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
     currentIndex < levels.length - 1 ? levels[currentIndex + 1] : null;
 
   const status = getStatus(slug);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (level) {
@@ -28,11 +29,58 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
     }
   }, [slug, level, markInProgress]);
 
+  const addCopyButtons = useCallback(() => {
+    if (!contentRef.current) return;
+    const pres = contentRef.current.querySelectorAll("pre");
+    pres.forEach((pre) => {
+      if (pre.querySelector(".copy-btn")) return;
+      pre.style.position = "relative";
+      const btn = document.createElement("button");
+      btn.className = "copy-btn";
+      btn.textContent = "Copier";
+      Object.assign(btn.style, {
+        position: "absolute",
+        top: "8px",
+        right: "8px",
+        padding: "4px 10px",
+        fontSize: "12px",
+        borderRadius: "6px",
+        border: "1px solid var(--border)",
+        background: "var(--muted)",
+        color: "var(--muted-foreground)",
+        cursor: "pointer",
+        opacity: "0",
+        transition: "opacity 0.2s",
+      });
+      pre.addEventListener("mouseenter", () => { btn.style.opacity = "1"; });
+      pre.addEventListener("mouseleave", () => {
+        btn.style.opacity = "0";
+        setTimeout(() => { btn.textContent = "Copier"; }, 200);
+      });
+      btn.addEventListener("click", async () => {
+        const code = pre.querySelector("code");
+        const text = (code || pre).textContent || "";
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "Copié !";
+        btn.style.color = "var(--green-400, #4ade80)";
+        setTimeout(() => {
+          btn.textContent = "Copier";
+          btn.style.color = "var(--muted-foreground)";
+        }, 2000);
+      });
+      pre.appendChild(btn);
+    });
+  }, []);
+
+  useEffect(() => {
+    addCopyButtons();
+  }, [contentHtml, addCopyButtons]);
+
   if (!level) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 className="text-2xl font-bold mb-4">Niveau introuvable</h1>
-        <Button render={<a href="/formation" />} variant="outline">Retour a la formation</Button>
+        <Button render={<a href="/formation" />} variant="outline">Retour à la formation</Button>
       </div>
     );
   }
@@ -82,6 +130,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
       {/* Contenu du cours */}
       {contentHtml ? (
         <div
+          ref={contentRef}
           className="prose dark:prose-invert max-w-none
             prose-headings:font-bold
             prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border prose-h2:pb-3
@@ -108,7 +157,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
 
       <Separator className="bg-border" />
 
-      {/* Marquer comme termine */}
+      {/* Marquer comme terminé */}
       {status !== "completed" ? (
         <div className="text-center">
           <Button
@@ -116,18 +165,18 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
             className="bg-green-600 hover:bg-green-700 text-white gap-2 text-base px-6 py-3"
           >
             <CheckCircle2 className="w-5 h-5" />
-            Marquer comme termine
+            Marquer comme terminé
           </Button>
         </div>
       ) : (
         <div className="text-center space-y-3 py-4">
           <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-lg px-6 py-3 text-base font-semibold animate-[fadeIn_0.3s_ease-in]">
             <CheckCircle2 className="w-5 h-5" />
-            Niveau termine !
+            Niveau terminé !
           </div>
           {nextLevel && (
             <p className="text-sm text-muted-foreground">
-              Prochaine etape →{" "}
+              Prochaine étape →{" "}
               <a href={`/formation/${nextLevel.slug}`} className="text-orange-400 hover:text-orange-300 font-medium">
                 Niveau {nextLevel.id} — {nextLevel.title}
               </a>
@@ -136,7 +185,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
         </div>
       )}
 
-      {/* Navigation precedent/suivant */}
+      {/* Navigation précédent/suivant */}
       <div className="flex justify-between pt-4">
         {prevLevel ? (
           <Button render={<a href={`/formation/${prevLevel.slug}`} />} variant="ghost" className="text-muted-foreground hover:text-foreground gap-2">

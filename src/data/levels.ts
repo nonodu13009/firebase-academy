@@ -11,19 +11,19 @@ export const levels: Level[] = [
   {
     id: 0,
     slug: "niveau-0",
-    title: "Decouverte",
+    title: "Découverte",
     subtitle: "Ton premier projet Firebase",
     description:
-      "Creer un projet Firebase, installer la CLI, connecter une app Next.js, lancer l'emulateur local.",
-    products: ["Console", "CLI", "Emulateur"],
+      "Créer un projet Firebase, installer la CLI, connecter une app Next.js, lancer l'émulateur local.",
+    products: ["Console", "CLI", "Émulateur"],
   },
   {
     id: 1,
     slug: "niveau-1",
-    title: "Les donnees",
+    title: "Les données",
     subtitle: "CRUD de notes avec Firestore",
     description:
-      "Creer, lire, modifier, supprimer des documents. Ecouter les changements en temps reel. Construire une interface CRUD.",
+      "Créer, lire, modifier, supprimer des documents. Écouter les changements en temps réel. Construire une interface CRUD.",
     products: ["Firestore"],
   },
   {
@@ -32,16 +32,16 @@ export const levels: Level[] = [
     title: "Les utilisateurs",
     subtitle: "Inscription, connexion, profil",
     description:
-      "Connexion Google et email. Proteger les pages. Lier les notes a un utilisateur.",
+      "Connexion Google et email. Protéger les pages. Lier les notes à un utilisateur.",
     products: ["Authentication"],
   },
   {
     id: 3,
     slug: "niveau-3",
-    title: "La securite",
-    subtitle: "Regles d'acces, qui peut faire quoi",
+    title: "La sécurité",
+    subtitle: "Règles d'accès, qui peut faire quoi",
     description:
-      "Ecrire des regles de securite Firestore. Valider les donnees cote serveur. Tester avec l'emulateur.",
+      "Écrire des règles de sécurité Firestore. Valider les données côté serveur. Tester avec l'émulateur.",
     products: ["Security Rules"],
   },
   {
@@ -50,25 +50,25 @@ export const levels: Level[] = [
     title: "Les fichiers et le backend",
     subtitle: "Upload d'images, logique serveur",
     description:
-      "Uploader des fichiers, securiser le stockage, ecrire des Cloud Functions declenchees par des evenements.",
+      "Uploader des fichiers, sécuriser le stockage, écrire des Cloud Functions déclenchées par des événements.",
     products: ["Cloud Storage", "Cloud Functions"],
   },
   {
     id: 5,
     slug: "niveau-5",
     title: "En ligne",
-    subtitle: "Deploiement, domaine, HTTPS",
+    subtitle: "Déploiement, domaine, HTTPS",
     description:
-      "Deployer sur Firebase Hosting, configurer un domaine, mettre en place les previews GitHub automatiques.",
+      "Déployer sur Firebase Hosting, configurer un domaine, mettre en place les previews GitHub automatiques.",
     products: ["Hosting"],
   },
   {
     id: 6,
     slug: "niveau-6",
     title: "Niveau pro",
-    subtitle: "Analytics, config a distance, IA",
+    subtitle: "Analytics, config à distance, IA",
     description:
-      "Tracker l'utilisation avec Analytics, modifier l'app a distance avec Remote Config, integrer l'IA Gemini, surveiller les performances.",
+      "Tracker l'utilisation avec Analytics, modifier l'app à distance avec Remote Config, intégrer l'IA Gemini, surveiller les performances.",
     products: ["Analytics", "Remote Config", "AI Logic", "Performance", "App Check"],
   },
 ];

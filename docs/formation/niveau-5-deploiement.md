@@ -3,27 +3,27 @@
 ## Table des Matières
 
 - [Objectif](#objectif)
-- [Le deploiement en 2 minutes](#le-deploiement-en-2-minutes)
-- [Etape 1 - Preparer l'app pour la production](#etape-1---preparer-lapp-pour-la-production)
-- [Etape 2 - Deployer sur Firebase Hosting](#etape-2---deployer-sur-firebase-hosting)
-- [Etape 3 - Deployer les Cloud Functions](#etape-3---deployer-les-cloud-functions)
-- [Etape 4 - Domaine personnalise](#etape-4---domaine-personnalise)
-- [Etape 5 - Previews automatiques avec GitHub](#etape-5---previews-automatiques-avec-github)
-- [Etape 6 - Checklist de mise en production](#etape-6---checklist-de-mise-en-production)
+- [Le déploiement en 2 minutes](#le-déploiement-en-2-minutes)
+- [Étape 1 - Préparer l'app pour la production](#étape-1---préparer-lapp-pour-la-production)
+- [Étape 2 - Déployer sur Firebase Hosting](#étape-2---déployer-sur-firebase-hosting)
+- [Étape 3 - Déployer les Cloud Functions](#étape-3---déployer-les-cloud-functions)
+- [Étape 4 - Domaine personnalisé](#étape-4---domaine-personnalisé)
+- [Étape 5 - Previews automatiques avec GitHub](#étape-5---previews-automatiques-avec-github)
+- [Étape 6 - Checklist de mise en production](#étape-6---checklist-de-mise-en-production)
 - [Ce que tu sais faire maintenant](#ce-que-tu-sais-faire-maintenant)
 
 ## Objectif
 
-A la fin de ce niveau, tu auras :
+À la fin de ce niveau, tu auras :
 
 - NoteFlow en ligne, accessible par n'importe qui
-- Un domaine personnalise (optionnel)
-- Le deploiement automatise via GitHub
-- Une checklist de production validee
+- Un domaine personnalisé (optionnel)
+- Le déploiement automatisé via GitHub
+- Une checklist de production validée
 
-## Le deploiement en 2 minutes
+## Le déploiement en 2 minutes
 
-Deployer, c'est passer de "ca marche sur mon ordi" a "ca marche pour tout le monde".
+Déployer, c'est passer de "ça marche sur mon ordi" à "ça marche pour tout le monde".
 
 Avec Firebase, c'est une commande :
 
@@ -31,24 +31,24 @@ Avec Firebase, c'est une commande :
 firebase deploy
 ```
 
-Ca deploie tout en meme temps :
+Ça déploie tout en même temps :
 
 - Le site web (Hosting)
-- Les regles de securite (Firestore + Storage)
+- Les règles de sécurité (Firestore + Storage)
 - Les Cloud Functions
 - Les index Firestore
 
-Firebase gere le SSL (HTTPS), le CDN mondial, et le scaling automatique.
+Firebase gère le SSL (HTTPS), le CDN mondial, et le scaling automatique.
 
-## Etape 1 - Preparer l'app pour la production
+## Étape 1 - Préparer l'app pour la production
 
 ### Variables d'environnement
 
-Verifie que ton `.env.local` contient les bonnes valeurs de production (celles de la console Firebase, pas de l'emulateur).
+Vérifie que ton `.env.local` contient les bonnes valeurs de production (celles de la console Firebase, pas de l'émulateur).
 
-### Desactiver les emulateurs en production
+### Désactiver les émulateurs en production
 
-Dans `src/lib/firebase.ts`, verifie que les emulateurs ne sont actifs qu'en dev :
+Dans `src/lib/firebase.ts`, vérifie que les émulateurs ne sont actifs qu'en dev :
 
 ```typescript
 if (process.env.NODE_ENV === "development") {
@@ -64,19 +64,19 @@ if (process.env.NODE_ENV === "development") {
 npm run build
 ```
 
-Corrige les erreurs si le build echoue. Un build qui passe = une app deployable.
+Corrige les erreurs si le build échoue. Un build qui passe = une app déployable.
 
-### Choix du mode de deploiement
+### Choix du mode de déploiement
 
 | Mode | Quand l'utiliser | Commande |
 | ---- | ---------------- | -------- |
 | Export statique | App sans SSR (client-side only) | `next export` puis Hosting |
-| App Hosting | App avec SSR (recommande pour Next.js) | Automatique via Git |
+| App Hosting | App avec SSR (recommandé pour Next.js) | Automatique via Git |
 | Hosting + Functions | SSR via Cloud Functions (ancien mode) | Config manuelle |
 
 Pour NoteFlow, le plus simple est l'**export statique** (notre app est 100% client-side avec Firebase) ou **App Hosting** si tu veux du SSR.
 
-## Etape 2 - Deployer sur Firebase Hosting
+## Étape 2 - Déployer sur Firebase Hosting
 
 ### Option A : Export statique (simple)
 
@@ -90,7 +90,7 @@ const nextConfig = {
 export default nextConfig;
 ```
 
-Build et deploie :
+Build et déploie :
 
 ```bash
 npm run build
@@ -100,49 +100,49 @@ firebase deploy --only hosting
 ### Option B : App Hosting (SSR)
 
 1. Console Firebase > **App Hosting**
-2. Connecte ton depot GitHub
+2. Connecte ton dépôt GitHub
 3. Choisis la branche `main`
-4. Firebase detecte automatiquement Next.js
-5. Chaque push sur `main` = deploiement automatique
+4. Firebase détecte automatiquement Next.js
+5. Chaque push sur `main` = déploiement automatique
 
-## Etape 3 - Deployer les Cloud Functions
+## Étape 3 - Déployer les Cloud Functions
 
 ```bash
 # Compile les fonctions
 cd functions && npm run build && cd ..
 
-# Deploie les fonctions
+# Déploie les fonctions
 firebase deploy --only functions
 ```
 
-Pour deployer une fonction specifique :
+Pour déployer une fonction spécifique :
 
 ```bash
 firebase deploy --only functions:compterMesNotes
 ```
 
-### Verifier le deploiement
+### Vérifier le déploiement
 
 1. Console Firebase > **Functions**
-2. Tu vois la liste de tes fonctions deployees
-3. Chaque fonction a son URL, ses logs, ses metriques
+2. Tu vois la liste de tes fonctions déployées
+3. Chaque fonction a son URL, ses logs, ses métriques
 
-## Etape 4 - Domaine personnalise
+## Étape 4 - Domaine personnalisé
 
 ### Ajouter un domaine
 
-1. Console Firebase > **Hosting** > **Domaines personnalises**
-2. Clique **Ajouter un domaine personnalise**
+1. Console Firebase > **Hosting** > **Domaines personnalisés**
+2. Clique **Ajouter un domaine personnalisé**
 3. Entre ton domaine (ex: `noteflow.app`)
-4. Firebase te donne des enregistrements DNS a configurer
+4. Firebase te donne des enregistrements DNS à configurer
 5. Ajoute ces enregistrements chez ton registrar (OVH, Namecheap, Google Domains...)
-6. Attends la propagation DNS (quelques minutes a 48h)
+6. Attends la propagation DNS (quelques minutes à 48h)
 
 ### SSL automatique
 
 Firebase provisionne automatiquement un certificat SSL. Ton site est accessible en HTTPS sans aucune configuration.
 
-## Etape 5 - Previews automatiques avec GitHub
+## Étape 5 - Previews automatiques avec GitHub
 
 ### Configurer les previews
 
@@ -152,57 +152,57 @@ firebase init hosting:github
 
 Firebase te demande :
 
-- Le depot GitHub (`ton-username/noteflow`)
+- Le dépôt GitHub (`ton-username/noteflow`)
 - La branche de production (`main`)
-- Creer un workflow GitHub Actions pour les pull requests
+- Créer un workflow GitHub Actions pour les pull requests
 
-### Comment ca marche
+### Comment ça marche
 
-1. Tu crees une branche et une Pull Request
-2. GitHub Actions build l'app et la deploie sur une URL de preview
-3. L'URL apparait en commentaire dans la PR
-4. Tu (ou ton equipe) testez sur cette URL
-5. Tu merges la PR, le deploiement de production se fait automatiquement
+1. Tu crées une branche et une Pull Request
+2. GitHub Actions build l'app et la déploie sur une URL de preview
+3. L'URL apparaît en commentaire dans la PR
+4. Tu (ou ton équipe) testez sur cette URL
+5. Tu merges la PR, le déploiement de production se fait automatiquement
 
-### Resultat
+### Résultat
 
 ```
 Pull Request #12 → preview-noteflow--pr12-abc123.web.app
 Merge sur main   → noteflow.web.app (production)
 ```
 
-## Etape 6 - Checklist de mise en production
+## Étape 6 - Checklist de mise en production
 
-Avant de considerer ton app comme "en production", verifie chaque point :
+Avant de considérer ton app comme "en production", vérifie chaque point :
 
-### Securite
+### Sécurité
 
-- [ ] Les regles Firestore sont en mode production (pas mode test)
-- [ ] Les regles Storage sont en mode production
+- [ ] Les règles Firestore sont en mode production (pas mode test)
+- [ ] Les règles Storage sont en mode production
 - [ ] Les variables d'environnement sont correctes
 - [ ] Pas de secrets dans le code source
-- [ ] Les emulateurs sont desactives en prod
+- [ ] Les émulateurs sont désactivés en prod
 
-### Donnees
+### Données
 
-- [ ] Les index Firestore necessaires sont crees
-- [ ] Les backups sont configures (plan Blaze)
+- [ ] Les index Firestore nécessaires sont créés
+- [ ] Les backups sont configurés (plan Blaze)
 
 ### Authentification
 
-- [ ] Les domaines autorises sont configures (console > Auth > Settings)
-- [ ] Les fournisseurs de connexion sont actives
+- [ ] Les domaines autorisés sont configurés (console > Auth > Settings)
+- [ ] Les fournisseurs de connexion sont activés
 
 ### Performance
 
 - [ ] Le build Next.js passe sans erreur
-- [ ] Les images sont optimisees
-- [ ] Le cache est configure dans `firebase.json`
+- [ ] Les images sont optimisées
+- [ ] Le cache est configuré dans `firebase.json`
 
 ### Monitoring
 
-- [ ] Google Analytics est active
-- [ ] Les alertes budget sont configurees (console Google Cloud)
+- [ ] Google Analytics est activé
+- [ ] Les alertes budget sont configurées (console Google Cloud)
 
 ### Configuration `firebase.json` finale
 
@@ -245,22 +245,22 @@ Avant de considerer ton app comme "en production", verifie chaque point :
 
 ## Ce que tu sais faire maintenant
 
-- Deployer une app Next.js sur Firebase Hosting
-- Deployer les Cloud Functions
-- Configurer un domaine personnalise avec SSL
+- Déployer une app Next.js sur Firebase Hosting
+- Déployer les Cloud Functions
+- Configurer un domaine personnalisé avec SSL
 - Mettre en place les previews automatiques via GitHub
 - Valider une checklist de production
 
-### Commandes a retenir
+### Commandes à retenir
 
-| Commande | Ce que ca fait |
+| Commande | Ce que ça fait |
 | -------- | -------------- |
-| `firebase deploy` | Deploie tout |
-| `firebase deploy --only hosting` | Deploie le site uniquement |
-| `firebase deploy --only functions` | Deploie les fonctions uniquement |
-| `firebase deploy --only firestore:rules` | Deploie les regles Firestore |
-| `firebase hosting:channel:deploy preview` | Cree une URL de preview |
+| `firebase deploy` | Déploie tout |
+| `firebase deploy --only hosting` | Déploie le site uniquement |
+| `firebase deploy --only functions` | Déploie les fonctions uniquement |
+| `firebase deploy --only firestore:rules` | Déploie les règles Firestore |
+| `firebase hosting:channel:deploy preview` | Crée une URL de preview |
 
 ---
 
-> Passe au [Niveau 6 - Niveau pro](niveau-6-pro.md) pour ajouter analytics, config a distance et IA.
+> Passe au [Niveau 6 - Niveau pro](niveau-6-pro.md) pour ajouter analytics, config à distance et IA.

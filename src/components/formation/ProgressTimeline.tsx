@@ -47,9 +47,9 @@ export function ProgressTimeline() {
 
       {/* Legende */}
       <div className="flex flex-wrap gap-x-4 gap-y-1 mb-4 text-[10px] text-muted-foreground">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400 inline-block" /> Valide</span>
+        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400 inline-block" /> Validé</span>
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-400 inline-block" /> En cours</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-muted-foreground/40 inline-block" /> A faire</span>
+        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-muted-foreground/40 inline-block" /> À faire</span>
       </div>
 
       {/* Levels */}
@@ -130,7 +130,7 @@ export function ProgressTimeline() {
                   {isLastCompleted && status === "completed" && (
                     <span className="inline-flex items-center gap-1 text-[10px] font-medium text-green-400 bg-green-400/10 rounded px-1.5 py-0.5">
                       <CheckCircle2 className="w-3 h-3" />
-                      Dernier valide
+                      Dernier validé
                     </span>
                   )}
                 </div>
