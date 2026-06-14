@@ -64,7 +64,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 className="text-2xl font-bold mb-4">Niveau introuvable</h1>
-        <Button render={<a href="/formation" />} variant="outline">Retour à la formation</Button>
+        <Button render={<a href="/formation" />} nativeButton={false} variant="outline">Retour à la formation</Button>
       </div>
     );
   }
@@ -172,7 +172,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
       {/* Navigation précédent/suivant */}
       <div className="flex justify-between pt-4">
         {prevLevel ? (
-          <Button render={<a href={`/formation/${prevLevel.slug}`} />} variant="ghost" className="text-muted-foreground hover:text-foreground gap-2">
+          <Button render={<a href={`/formation/${prevLevel.slug}`} />} nativeButton={false} variant="ghost" className="text-muted-foreground hover:text-foreground gap-2">
             <ArrowLeft className="w-4 h-4" />
             Niveau {prevLevel.id} — {prevLevel.title}
           </Button>
@@ -180,7 +180,7 @@ export default function NiveauContent({ contentHtml }: { contentHtml: string | n
           <div />
         )}
         {nextLevel ? (
-          <Button render={<a href={`/formation/${nextLevel.slug}`} />} variant="ghost" className="text-muted-foreground hover:text-foreground gap-2">
+          <Button render={<a href={`/formation/${nextLevel.slug}`} />} nativeButton={false} variant="ghost" className="text-muted-foreground hover:text-foreground gap-2">
             Niveau {nextLevel.id} — {nextLevel.title}
             <ArrowRight className="w-4 h-4" />
           </Button>

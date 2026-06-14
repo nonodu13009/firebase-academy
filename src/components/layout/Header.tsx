@@ -13,6 +13,8 @@ const navItems = [
   { href: "/glossaire", label: "Glossaire" },
   { href: "/exemples", label: "Exemples" },
   { href: "/reference", label: "Référence" },
+  { href: "/produits", label: "Produits" },
+  { href: "/commandes", label: "Commandes" },
 ];
 
 export function Header() {
@@ -79,6 +81,7 @@ export function Header() {
               ) : (
                 <Button
                   render={<a href="/connexion" />}
+                  nativeButton={false}
                   variant="ghost"
                   size="sm"
                   className="hidden md:inline-flex text-muted-foreground hover:text-foreground"

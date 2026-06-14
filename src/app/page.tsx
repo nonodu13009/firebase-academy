@@ -32,11 +32,11 @@ export default function Home() {
           Chaque mot technique est expliqué.
         </p>
         <div className="flex gap-4 justify-center pt-4">
-          <Button render={<a href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
+          <Button render={<a href="/connexion" />} nativeButton={false} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
             Commencer la formation
             <ArrowRight className="w-4 h-4" />
           </Button>
-          <Button render={<a href="/glossaire" />} size="lg" variant="outline" className="border-border text-muted-foreground hover:text-foreground">
+          <Button render={<a href="/glossaire" />} nativeButton={false} size="lg" variant="outline" className="border-border text-muted-foreground hover:text-foreground">
             Voir le glossaire
           </Button>
         </div>
@@ -145,7 +145,7 @@ export default function Home() {
         <p className="text-muted-foreground">
           Aucun prérequis Firebase. Juste les bases de JavaScript et React.
         </p>
-        <Button render={<a href="/connexion" />} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
+        <Button render={<a href="/connexion" />} nativeButton={false} size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
           Niveau 0 — Découverte
           <ArrowRight className="w-4 h-4" />
         </Button>
