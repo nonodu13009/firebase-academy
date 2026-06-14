@@ -135,6 +135,97 @@
   to { opacity: 1; transform: scale(1); }
 }
 
+/* ── Chat animations ── */
+
+@keyframes chat-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes chat-dot-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+@utility animate-chat-fade-in {
+  animation: chat-fade-in 0.25s ease-out;
+}
+@utility animate-chat-dot-1 {
+  animation: chat-dot-bounce 1.4s ease-in-out infinite;
+}
+@utility animate-chat-dot-2 {
+  animation: chat-dot-bounce 1.4s ease-in-out 0.2s infinite;
+}
+@utility animate-chat-dot-3 {
+  animation: chat-dot-bounce 1.4s ease-in-out 0.4s infinite;
+}
+
+/* ── Chat message content ── */
+
+.chat-message-content .chat-inline-code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--muted);
+  font-size: 0.8em;
+  font-family: var(--font-mono);
+  color: #f97316;
+}
+
+.chat-message-content .chat-code-block {
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: oklch(0.18 0 0);
+  overflow-x: auto;
+  font-size: 0.8em;
+  line-height: 1.5;
+}
+.chat-message-content .chat-code-block code {
+  font-family: var(--font-mono);
+  color: #e2e8f0;
+  background: none;
+  padding: 0;
+}
+
+.chat-message-content .chat-list {
+  margin: 6px 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+.chat-message-content .chat-list li {
+  margin: 2px 0;
+  line-height: 1.5;
+}
+
+.chat-message-content .chat-list-ordered {
+  margin: 6px 0;
+  padding-left: 18px;
+  list-style: decimal;
+}
+.chat-message-content .chat-list-ordered li {
+  margin: 2px 0;
+  line-height: 1.5;
+}
+
+.chat-message-content .chat-h3 {
+  font-size: 0.95em;
+  font-weight: 700;
+  margin: 10px 0 4px;
+}
+.chat-message-content .chat-h4 {
+  font-size: 0.9em;
+  font-weight: 600;
+  margin: 8px 0 3px;
+}
+
+.chat-message-content strong {
+  font-weight: 600;
+}
+
+.chat-message-content em {
+  font-style: italic;
+}
+
 /* Copy button on code blocks */
 @layer base {
   .prose pre {
