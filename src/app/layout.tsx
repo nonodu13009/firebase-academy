@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ProgressTimeline } from "@/components/formation/ProgressTimeline";
 import { MainWithSidebar } from "@/components/formation/MainWithSidebar";
+import { ChatBubble } from "@/components/chat/ChatBubble";
 
 const nunito = Nunito({
   variable: "--font-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
             <Footer />
           </MainWithSidebar>
           <ProgressTimeline />
+          <ChatBubble />
         </Providers>
       </body>
     </html>
